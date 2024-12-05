@@ -1,6 +1,22 @@
 import { Article } from '../../../types';
 import uniqueId from "lodash/uniqueId";
 
+function shortenDescription(str: string): string {
+    return str.length > 50
+      ? `${str
+          .split(" ")
+          .filter((_, index) => index <= 50)
+          .join(" ")}...`
+      : str;
+  }
+
+  function formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  }
+  
+
 const ArticlePreview = (article: Article) => {
   return (
     <div className='article-preview'>
@@ -15,13 +31,13 @@ const ArticlePreview = (article: Article) => {
         ))}
         </div>
         <div className='article-preview__text'>
-        {article.body}
+        {shortenDescription(article.body)}
         </div>
       </div>
       <div className='article-preview__author-info'>
-        <div>
+        <div className='article-preview__create-info'>
         <p>{article.author.username}</p>
-        <p>{article.createdAt}</p>
+        <p>{formatDate(article.createdAt)}</p>
         </div>
         <img className='article-preview__avatar' src={article.author.image} alt="" />
       </div>
