@@ -1,0 +1,40 @@
+.article-preview {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    width: 938px; 
+    height: 140px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    justify-content: space-between;
+}
+
+.article-preview__avatar {
+    width: 46px;
+height: 46px;
+}
+
+.article-preview__author-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.article-preview__content {
+    flex: 2;
+    h5 {
+        size: 18px;
+        font-weight: 400;
+    }
+}
+
+.article-preview__title {
+    display: flex;
+    flex-direction: row;
+}
+
+.article-preview__likes {
+    font-size: 25px;
+    padding-left: 10px;
+}
