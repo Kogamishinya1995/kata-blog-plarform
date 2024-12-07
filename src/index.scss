@@ -1,7 +1,8 @@
 @use './components/header/header';
 @use './components/header/signButtons/signButtons.scss';
 @use './components/main/main';
-@use './components/main/articlePreview/articlePreview.scss';
+@use './components/main/articlesList/articlePreview/articlePreview.scss';
+@use './components/main/singleArticle/singleArticle.scss';
 
 
   body {
