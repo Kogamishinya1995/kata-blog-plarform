@@ -1,0 +1,106 @@
+.signIn-container {
+    background-color: white;
+    width: 35vw;
+    margin-top: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+    h4 {
+font-family: Roboto;
+font-size: 25px;
+font-weight: 500;
+line-height: 28px;
+text-align: center;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+padding-top: 20px;
+padding-bottom: 10px;
+    }
+}
+
+.signIn-form {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.signIn-form__field {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 15px;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.signIn-form__field-error {
+    position: absolute;
+    bottom: -30px;
+}
+
+.signIn-form__field-name {
+font-family: Roboto;
+font-size: 18px;
+font-weight: 400;
+line-height: 22px;
+text-align: left;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+}
+
+.signIn-form__checkbox {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    position: relative;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    input[type="checkbox"] {
+        margin-right: 10px; /* Увеличивает расстояние между чекбоксом и текстом */
+    }
+}
+
+
+.submit-button {
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button--disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.submit-button--enabled {
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+}
+
+.submit-button--enabled:hover {
+    background-color: #45a049;
+}
+
+.signIn-form_have-Account-Message {
+    font-family: Roboto;
+font-size: 20px;
+font-weight: 400;
+line-height: 20px;
+text-align: center;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+padding-top: 20px;
+padding-bottom: 20px;
+}
+

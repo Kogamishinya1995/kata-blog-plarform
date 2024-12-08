@@ -1,13 +1,22 @@
+.single-article-container {
+    background-color: #EBEEF3;
+    height: 100vh;
+}
+
 .single-article {
     background-color: white;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
     width: 70vw;
-    height: 60vh;
+    min-height: 10vh; 
     margin-top: 5vh;
     padding: 30px;
+    display: flex; 
+    flex-direction: column;
+    box-sizing: border-box;
 }
+
 
 .single-article-title {
     display:  flex;

@@ -3,6 +3,8 @@
 @use './components/main/main';
 @use './components/main/articlesList/articlePreview/articlePreview.scss';
 @use './components/main/singleArticle/singleArticle.scss';
+@use './components/main/articlesList/articlesList.scss';
+@use './components/main/signInPage/signinPage.scss';
 
 
   body {
@@ -10,4 +12,5 @@
   padding: 0;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 };

@@ -11,9 +11,13 @@ const ArticlePreview = (article: Article) => (
         <p className="article-preview__likes">♡ {article.favoritesCount}</p>
       </div>
       <div className="article-preview__tags">
-        {article.tagList.map((item) => (
-          <p key={uniqueId("tag_")}>{item}</p>
-        ))}
+      {article.tagList?.length ? (
+    article.tagList.map((item) => (
+      <p key={uniqueId("tag_")}>{item}</p>
+    ))
+  ) : (
+    <p>#безтегов</p>
+  )}
       </div>
       <div className="article-preview__text">
         {shortenDescription(article.description)}

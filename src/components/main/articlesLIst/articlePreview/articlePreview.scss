@@ -1,8 +1,14 @@
+.article-preview__container {
+    width: 55vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .article-preview {
     display: flex;
     flex-direction: row;
     background-color: white;
-    width: 938px; 
+    width: 60vw; 
     height: 15vh;
     margin-left: auto;
     margin-right: auto;
