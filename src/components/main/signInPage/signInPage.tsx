@@ -1,48 +1,41 @@
 import { useForm } from "react-hook-form";
 import classNames from "classnames";
+import { useLogInUserMutation } from "../../../slices/articlesApi";
 
-const SignInPage = () => {
+interface SignInFormData {
+    email: string;
+    password: string;
+}
+
+const SignUpPage = () => {
     const {
         register,
         formState: { errors, isValid },
         handleSubmit,
         reset,
-        watch,
-    } = useForm({
-        mode: "onBlur",
+    } = useForm<SignInFormData>({
+        mode: "onChange",
     });
 
-    const onSubmit = (data) => {
-        alert(JSON.stringify(data));
-        reset();
-    };
+    const [logInUser, { isLoading, error }] = useLogInUserMutation(); 
 
-    const password = watch("password");
+    const onSubmit = async (data: SignInFormData) => {
+        try {
+            const result = await logInUser({
+                email: data.email,
+                password: data.password,
+            }).unwrap();
+            console.log("Log In successful:", result);
+            reset();
+        } catch (err) {
+            console.error("Log In failed:", err);
+        }
+    };
 
     return (
         <div className="signIn-container">
-            <h4>Create new account</h4>
+            <h4>Sign In</h4>
             <form className="signIn-form" onSubmit={handleSubmit(onSubmit)}>
-                <label className="signIn-form__field">
-                    <p className="signIn-form__field-name">User Name</p>
-                    <input
-                        type="text"
-                        {...register("userName", { 
-                            required: "Поле является обязательным",
-                            minLength: {
-                                value: 3,
-                                message: "Минимум 3 символа",
-                            },
-                            maxLength: {
-                                value: 20,
-                                message: "Максимум 20 символов",
-                            }
-                        })}  
-                    />
-                    {errors.userName && (
-                        <p className="signIn-form__field-error" style={{ color: "red" }}>{String(errors.userName.message)}</p>
-                    )}
-                </label>
                 <label className="signIn-form__field">
                 <p className="signIn-form__field-name">Email address</p>
                     <input
@@ -63,49 +56,15 @@ const SignInPage = () => {
                         type="password"
                         {...register("password", { 
                             required: "Поле является обязательным",
-                            minLength: {
-                                value: 6,
-                                message: "Минимум 6 символов",
-                            },
-                            maxLength: {
-                                value: 40,
-                                message: "Максимум 40 символов",
-                            }
                         })}  
                     />
                     {errors.password && (
                         <p className="signIn-form__field-error" style={{ color: "red" }}>{String(errors.password.message)}</p>
                     )}
                 </label>
-                <label className="signIn-form__field">
-                <p className="signIn-form__field-name">Repeat Password</p>
-                    <input
-                        type="password"
-                        {...register("repeatPassword", {
-                            required: "Поле является обязательным",
-                            validate: value =>
-                                value === password || "Пароли не совпадают",
-                        })}
-                    />
-                    {errors.repeatPassword && (
-                        <p className="signIn-form__field-error" style={{ color: "red" }}>{String(errors.repeatPassword.message)}</p>
-                    )}
-                </label>
-                <label className="signIn-form__checkbox">
-                    <input
-                        type="checkbox"
-                        {...register("agreement", {
-                            required: "Вы должны согласиться с условиями",
-                        })}
-                    />
-                    I agree to the processing of personal data
-                    {errors.agreement && (
-                        <p className="signIn-form__checkbox-error" style={{ color: "red" }}>{String(errors.agreement.message)}</p>
-                    )}
-                </label>
                 <input
                     type="submit"
-                    value="Create"
+                    value="Login"
                     disabled={!isValid}
                     className={classNames("submit-button", {
                         "submit-button--disabled": !isValid,
@@ -118,4 +77,4 @@ const SignInPage = () => {
     );
 };
 
-export default SignInPage;
+export default SignUpPage;

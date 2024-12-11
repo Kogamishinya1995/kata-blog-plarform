@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 
 const SignButtons = () => (
   <div className="sign-buttons">
-    <Link to="/sign-in">
-      <Button variant="outline-info">Sign In</Button>
+    <Link to="/sign-up">
+      <Button variant="outline-info">Sign Up</Button>
     </Link>
-    <Button variant="outline-info">Sign Up</Button>
+    <Link to="/sign-in">
+    <Button variant="outline-info">Sign In</Button>
+    </Link>
   </div>
 );
 

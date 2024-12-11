@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { articlesApi } from './articlesApi.ts';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 const store = configureStore({
   reducer: {

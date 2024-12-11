@@ -4,7 +4,7 @@
 @use './components/main/articlesList/articlePreview/articlePreview.scss';
 @use './components/main/singleArticle/singleArticle.scss';
 @use './components/main/articlesList/articlesList.scss';
-@use './components/main/signInPage/signinPage.scss';
+@use './components/main/signUpPage/signUpPage.scss';
 
 
   body {
@@ -13,4 +13,9 @@
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  background-color: #EBEEF3 !important;
 };
+
+#root {
+  margin: auto;
+}

@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetAnArticleQuery } from "../../../slices/articlesApi";
 import formatDate from "../../../utils/formatDate";
 import ReactMarkdown from "react-markdown";
-import { Button } from "react-bootstrap";
 
 const SingleArticle = () => {
-  const { slug } = useParams();
-  const { data, error, isLoading } = useGetAnArticleQuery(slug);
+  const { slug } = useParams<{ slug: string }>(); // Указываем ожидаемый тип параметра.
+  const { data, error, isLoading } = useGetAnArticleQuery(slug || ""); // Используем пустую строку как fallback.
+
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
 
@@ -26,13 +26,13 @@ const SingleArticle = () => {
                 </p>
               </div>
               <div className="article-preview__tags">
-              {data.article.tagList?.length ? (
-    data.article.tagList.map((item: string) => (
-      <p key={uniqueId("tag_")}>{item}</p>
-    ))
-  ) : (
-    <p>#безтегов</p>
-  )}
+                {data.article.tagList?.length ? (
+                  data.article.tagList.map((item: string) => (
+                    <p key={uniqueId("tag_")}>{item}</p>
+                  ))
+                ) : (
+                  <p>#безтегов</p>
+                )}
               </div>
               <div className="single-article-description">
                 {data.article.description}
@@ -51,9 +51,16 @@ const SingleArticle = () => {
             </div>
           </div>
           <div className="single-article-body">
-          <ReactMarkdown>{data.article.body}</ReactMarkdown>
+            <ReactMarkdown>{data.article.body}</ReactMarkdown>
           </div>
-          <button onClick={goBack} type="button" className="btn btn-primary btn-lg" style={{ width: '15vw', marginLeft: 'auto', marginRight: 'auto', marginTop: '5vh' }}>Вернуться назад</button>
+          <button
+            onClick={goBack}
+            type="button"
+            className="btn btn-primary btn-lg"
+            style={{ width: "15vw", marginLeft: "auto", marginRight: "auto", marginTop: "5vh" }}
+          >
+            Вернуться назад
+          </button>
         </div>
       ) : (
         !isLoading && (
