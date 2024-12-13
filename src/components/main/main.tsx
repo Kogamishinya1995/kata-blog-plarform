@@ -4,6 +4,7 @@ import SingleArticle from "./singleArticle/singleArticle";
 import SignUpPage from "./signUpPage/signUpPage";
 import SignInPage from "./signInPage/signInPage";
 import EditProfilePage from "./editProfilePage/editProfile";
+import CreateArticlePage from "./createArticlePage/createArticle";
 
 
 const MainComponent = () => (
@@ -15,6 +16,7 @@ const MainComponent = () => (
       <Route path="/sign-up" element={<SignUpPage />} />
       <Route path="/sign-in" element={<SignInPage />} />
       <Route path="/profile" element={<EditProfilePage />} />
+      <Route path="/new-article" element={<CreateArticlePage />} />
     </Routes>
   </main>
 );

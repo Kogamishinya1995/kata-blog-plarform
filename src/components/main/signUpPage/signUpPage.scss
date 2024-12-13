@@ -71,11 +71,13 @@ text-decoration-skip-ink: none;
 
 .submit-button {
     margin-top: 20px;
+    margin-bottom: 20px;
     font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+
 }
 
 .submit-button--disabled {
