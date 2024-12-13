@@ -68,10 +68,9 @@ const EditProfilePage = () => {
                     <input
                         type="text"
                         {...register("userName", { 
-                            required: "Поле является обязательным",
                             minLength: {
                                 value: 1,
-                                message: "Поле не может быть пустым!",
+                                message: "Имя пользователя должно содержать не менее 1 символа",
                             },
                         })}  
                     />
@@ -87,7 +86,7 @@ const EditProfilePage = () => {
                             required: "Поле является обязательным",
                             pattern: {
                                 value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i,
-                                message: 'Invalid email address',
+                                message: 'Некорректный e-mail',
                               },
                         })}  
                     />
@@ -98,7 +97,6 @@ const EditProfilePage = () => {
                     <input
                         type="password"
                         {...register("password", { 
-                            required: "Поле является обязательным",
                             minLength: {
                                 value: 6,
                                 message: "Минимум 6 символов",
@@ -118,7 +116,6 @@ const EditProfilePage = () => {
                     <input
                         type="text"
                         {...register("avatar", { 
-                            required: "Поле является обязательным",
                             pattern: {
                                 value: /(https?:\/\/.*\.(?:png|jpg))/i,
                                 message: 'Invalid avatar URL',
