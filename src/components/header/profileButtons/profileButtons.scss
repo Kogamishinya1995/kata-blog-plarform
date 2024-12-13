@@ -1,0 +1,30 @@
+.profile-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding-right: 20px;
+    
+}
+
+.profile-buttons__username {
+    font-family: Inter UI;
+    font-size: 28px;
+    line-height: 28px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color:  black;
+    padding-top: 5px;
+}
+
+.profile-buttons__edit-profile-link {
+    text-decoration: none;
+    display: flex;
+    flex-direction:  row;
+    gap: 10px;
+    img {
+        width: 50px;
+        height: 50px;
+        padding-bottom: 5px;
+    }
+}

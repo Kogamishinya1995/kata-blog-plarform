@@ -1,77 +1,78 @@
 import { useForm } from "react-hook-form";
 import classNames from "classnames";
-import { useRegisterUserMutation } from "../../../slices/articlesApi";
+import { useUpdateUserMutation } from "../../../slices/articlesApi";
 import { useDispatch } from "react-redux";
-import { setAuthData } from "../../../slices/authSlice";
+import { updateAuthData } from "../../../slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
-interface SignUpFormData {
+interface UpdateUserForm {
     userName: string;
     email: string;
     password: string;
-    repeatPassword: string;
-    agreement: boolean;
+    avatar: string;
 }
 
-const SignUpPage = () => {
+const EditProfilePage = () => {
     const {
         register,
         formState: { errors, isValid },
         handleSubmit,
         reset,
-        watch,
-    } = useForm<SignUpFormData>({
+    } = useForm<UpdateUserForm>({
         mode: "onChange",
     });
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const token = useSelector((state) => state.auth.token);
 
-    const [registerUser, { isLoading, error }] = useRegisterUserMutation(); 
+    const [updateUser, { isLoading, error }] = useUpdateUserMutation(); 
 
-    const onSubmit = async (data: SignUpFormData) => {
-    try {
-        const result = await registerUser({
-            username: data.userName,
-            email: data.email,
-            password: data.password,
-        }).unwrap();
-        console.log("Registration successful:", result);
-        dispatch(
-            setAuthData({
+    const onSubmit = async (data: UpdateUserForm) => {
+        try {
+          const result = await updateUser({
+            user: {
+              username: data.userName,
+              email: data.email,
+              password: data.password,
+              image: data.avatar,
+            },
+            token,
+          }).unwrap();
+      
+          console.log("Update successful:", result);
+          dispatch(
+            updateAuthData({
               token: result.user.token,
               username: result.user.username,
               email: result.user.email,
+              image: result.user.image,
             })
           );
-        reset();
-        navigate("/"); 
-    } catch (err) {
-        console.error("Registration failed:", err);
-    }
-};
-
-    const password = watch("password");
+          reset();
+          navigate("/");
+        } catch (err) {
+          console.error("Update failed:", err);
+        }
+      };
+      
 
     return (
         <div className="signIn-container">
-            <h4>Create new account</h4>
+            <h4>Edit Profile</h4>
             <form className="signIn-form" onSubmit={handleSubmit(onSubmit)}>
                 <label className="signIn-form__field">
-                    <p className="signIn-form__field-name">Userame</p>
+                    <p className="signIn-form__field-name">Username</p>
                     <input
                         type="text"
                         {...register("userName", { 
                             required: "Поле является обязательным",
                             minLength: {
-                                value: 3,
-                                message: "Минимум 3 символа",
+                                value: 1,
+                                message: "Поле не может быть пустым!",
                             },
-                            maxLength: {
-                                value: 20,
-                                message: "Максимум 20 символов",
-                            }
                         })}  
                     />
                     {errors.userName && (
@@ -93,7 +94,7 @@ const SignUpPage = () => {
                     {errors.email && <p className="signIn-form__field-error" style={{ color: "red" }}>{String(errors.email.message)}</p>}
                 </label>
                 <label className="signIn-form__field">
-                <p className="signIn-form__field-name">Password</p>
+                <p className="signIn-form__field-name">New Password</p>
                     <input
                         type="password"
                         {...register("password", { 
@@ -113,30 +114,18 @@ const SignUpPage = () => {
                     )}
                 </label>
                 <label className="signIn-form__field">
-                <p className="signIn-form__field-name">Repeat Password</p>
+                <p className="signIn-form__field-name">Avatar image (url)</p>
                     <input
-                        type="password"
-                        {...register("repeatPassword", {
+                        type="text"
+                        {...register("avatar", { 
                             required: "Поле является обязательным",
-                            validate: value =>
-                                value === password || "Пароли не совпадают",
-                        })}
+                            pattern: {
+                                value: /(https?:\/\/.*\.(?:png|jpg))/i,
+                                message: 'Invalid avatar URL',
+                              },
+                        })}  
                     />
-                    {errors.repeatPassword && (
-                        <p className="signIn-form__field-error" style={{ color: "red" }}>{String(errors.repeatPassword.message)}</p>
-                    )}
-                </label>
-                <label className="signIn-form__checkbox">
-                    <input
-                        type="checkbox"
-                        {...register("agreement", {
-                            required: "Вы должны согласиться с условиями",
-                        })}
-                    />
-                    I agree to the processing of personal data
-                    {errors.agreement && (
-                        <p className="signIn-form__checkbox-error" style={{ color: "red" }}>{String(errors.agreement.message)}</p>
-                    )}
+                    {errors.avatar && <p className="signIn-form__field-error" style={{ color: "red" }}>{String(errors.avatar.message)}</p>}
                 </label>
                 <input
                     type="submit"
@@ -153,4 +142,4 @@ const SignUpPage = () => {
     );
 };
 
-export default SignUpPage;
+export default EditProfilePage;

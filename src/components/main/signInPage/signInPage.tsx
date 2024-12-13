@@ -1,6 +1,9 @@
 import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import { useLogInUserMutation } from "../../../slices/articlesApi";
+import { useDispatch } from "react-redux";
+import { setAuthData } from "../../../slices/authSlice";
+import { useNavigate } from "react-router-dom";
 
 interface SignInFormData {
     email: string;
@@ -16,6 +19,8 @@ const SignUpPage = () => {
     } = useForm<SignInFormData>({
         mode: "onChange",
     });
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [logInUser, { isLoading, error }] = useLogInUserMutation(); 
 
@@ -26,7 +31,15 @@ const SignUpPage = () => {
                 password: data.password,
             }).unwrap();
             console.log("Log In successful:", result);
+            dispatch(
+                setAuthData({
+                  token: result.user.token,
+                  username: result.user.username,
+                  email: result.user.email,
+                })
+              );
             reset();
+            navigate("/"); 
         } catch (err) {
             console.error("Log In failed:", err);
         }
