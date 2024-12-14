@@ -40,8 +40,9 @@
     justify-content: space-between;
 }
 
-.single-article__author-info {
+.single-article__author-container {
     display: flex;
+    flex-direction: column;
 }
 
 .single-article-description {
@@ -79,4 +80,9 @@
     text-decoration-skip-ink: none;
     color: #000000D9;
     padding-right: 10px;
+}
+
+.single-article__author-info {
+    display: flex;
+    flex-direction: row;
 }

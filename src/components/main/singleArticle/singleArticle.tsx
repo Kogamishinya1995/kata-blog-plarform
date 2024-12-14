@@ -1,15 +1,22 @@
 import { uniqueId } from "lodash";
+import ReactMarkdown from "react-markdown";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAnArticleQuery } from "../../../slices/articlesApi";
 import formatDate from "../../../utils/formatDate";
-import ReactMarkdown from "react-markdown";
+import { useSelector } from "react-redux";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 const SingleArticle = () => {
-  const { slug } = useParams<{ slug: string }>(); // Указываем ожидаемый тип параметра.
-  const { data, error, isLoading } = useGetAnArticleQuery(slug || ""); // Используем пустую строку как fallback.
+  const { slug } = useParams<{ slug: string }>();
+  const { data, error, isLoading } = useGetAnArticleQuery(slug || "");
+  console.log('дата', data);
 
   const navigate = useNavigate();
-  const goBack = () => navigate('/articles');
+  const goBack = () => navigate("/articles");
+
+  const user = useSelector((state) => state.auth.username);
+
 
   return (
     <div className="single-article-container">
@@ -38,16 +45,31 @@ const SingleArticle = () => {
                 {data.article.description}
               </div>
             </div>
-            <div className="single-article__author-info">
-              <div className="single-article-preview__create-info">
-                <p className="single-article-preview__author-name">{data.article.author.username}</p>
-                <p>{formatDate(data.article.createdAt)}</p>
+            <div className="single-article__author-container">
+              <div className="single-article__author-info">
+                <div className="single-article-preview__create-info">
+                  <p className="single-article-preview__author-name">
+                    {data.article.author.username}
+                  </p>
+                  <p>{formatDate(data.article.createdAt)}</p>
+                </div>
+                <img
+                  className="article-preview__avatar"
+                  src={data.article.author.image}
+                  alt=""
+                />
               </div>
-              <img
-                className="article-preview__avatar"
-                src={data.article.author.image}
-                alt=""
-              />
+              <div className="single-article-edit-button">
+                { user === data.article.author.username ? <Button variant="btn btn-outline-success" 
+                onClick={() => navigate(`/articles/${slug}/edit`, { state: {
+                  title: data.article.title,
+                  description: data.article.description,
+                  text: data.article.body,
+                  tags: data.article.tagList,
+                  slug: data.article.slug,
+                } })}
+                >Edit</Button> : 'не я автор' }
+              </div>
             </div>
           </div>
           <div className="single-article-body">
@@ -57,7 +79,12 @@ const SingleArticle = () => {
             onClick={goBack}
             type="button"
             className="btn btn-primary btn-lg"
-            style={{ width: "15vw", marginLeft: "auto", marginRight: "auto", marginTop: "5vh" }}
+            style={{
+              width: "15vw",
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginTop: "5vh",
+            }}
           >
             Вернуться назад
           </button>

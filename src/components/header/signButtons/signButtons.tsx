@@ -7,7 +7,7 @@ const SignButtons = () => (
       <Button variant="outline-info">Sign Up</Button>
     </Link>
     <Link to="/sign-in">
-    <Button variant="outline-info">Sign In</Button>
+      <Button variant="outline-info">Sign In</Button>
     </Link>
   </div>
 );

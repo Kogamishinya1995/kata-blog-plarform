@@ -27,16 +27,20 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setAuthData(state, action: PayloadAction<{ token: string; username: string; email: string }>) {
+    setAuthData(state, action: PayloadAction<{ token: string; username: string; email: string, image?: string | null | undefined }>) {
       console.log("Setting auth data:", action.payload);
       state.token = action.payload.token;
       state.username = action.payload.username;
       state.email = action.payload.email;
+      if (action.payload.image !== undefined) {
+        state.image = action.payload.image;
+      }
     },
     clearAuthData(state) {
       state.token = null;
       state.username = null;
       state.email = null;
+      state.image = null;
     },
     updateAuthData(state, action: PayloadAction<AuthData>) { 
       console.log("Setting auth data:", action.payload);

@@ -1,10 +1,10 @@
 import classNames from "classnames";
 import { useEffect } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useCreateArticleMutation } from "../../../slices/articlesApi";
+import { useUpdateArticleMutation } from "../../../slices/articlesApi";
+import { useLocation } from 'react-router-dom';
 
 interface CreateArticleFormData {
   title: string;
@@ -15,8 +15,15 @@ interface CreateArticleFormData {
   }[];
 }
 
-const CreateArticlePage = () => {
-  const {
+const EditArticlePage = () => {
+    
+    const location = useLocation();
+    const articleData = location.state;
+    const tags = articleData.tags.map((item) => ({ tags: [item] }));
+    const slug = articleData.slug;
+    console.log(articleData.text);
+
+    const {
     register,
     formState: { errors, isValid },
     handleSubmit,
@@ -24,12 +31,17 @@ const CreateArticlePage = () => {
     control,
   } = useForm<CreateArticleFormData>({
     mode: "onChange",
+    defaultValues: {
+        title: articleData.title,
+        shortDescription: articleData.description,
+        text: articleData.text,
+        test: tags,
+      },
   });
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((state) => state.auth.token);
 
-  const [createArticle, { isLoading, error }] = useCreateArticleMutation();
+  const [updateArticle, { isLoading, error }] = useUpdateArticleMutation();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "test",
@@ -40,9 +52,10 @@ const CreateArticlePage = () => {
     .filter((item) => item !== "" && item !== undefined)
     .flat();
 
+
   const onSubmit = async (data: CreateArticleFormData) => {
     try {
-      const result = await createArticle({
+      const result = await updateArticle({
         article: {
           title: data.title,
           description: data.shortDescription,
@@ -50,18 +63,20 @@ const CreateArticlePage = () => {
           tagList: filtredtags,
         },
         token,
+        slug,
       }).unwrap();
-      console.log("Log In successful:", result);
+      console.log("Update successful:", result);
       reset();
-      navigate(`/articles/${result.article.slug}`);
+      navigate(`/articles/${result.article.slug}`, { state: { updated: true } });
     } catch (err) {
-      console.error("Log In failed:", err);
+      console.error("Update failed:", err);
     }
   };
 
+
   return (
     <div className="signIn-container">
-      <h4>Create new article</h4>
+      <h4>Edit Article</h4>
       <form className="signIn-form" onSubmit={handleSubmit(onSubmit)}>
         <label className="signIn-form__field">
           <p className="signIn-form__field-name">Title</p>
@@ -153,4 +168,4 @@ const CreateArticlePage = () => {
   );
 };
 
-export default CreateArticlePage;
+export default EditArticlePage;

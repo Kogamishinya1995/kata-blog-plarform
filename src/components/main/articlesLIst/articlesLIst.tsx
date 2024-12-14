@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
+import ResponsivePagination from "react-responsive-pagination";
+import { Link, useSearchParams } from "react-router-dom";
 import { useGetArticlesQuery } from "../../../slices/articlesApi";
 import { Article } from "../../../types";
 import ArticlePreview from "../articlesLIst/articlePreview/articlePreview";
-import { Link, useSearchParams } from "react-router-dom";
-import ResponsivePagination from "react-responsive-pagination";
 
 const ArticleList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -31,12 +31,12 @@ const ArticleList = () => {
         data.articles.length > 0 ? (
           data.articles.map((article: Article) => (
             <div key={article.slug} className="article-preview__container">
-            <Link
-              to={`/articles/${article.slug}`}
-              style={{ textDecoration: "none" }}
-            >
-              <ArticlePreview {...article} />
-            </Link>
+              <Link
+                to={`/articles/${article.slug}`}
+                style={{ textDecoration: "none" }}
+              >
+                <ArticlePreview {...article} />
+              </Link>
             </div>
           ))
         ) : (
