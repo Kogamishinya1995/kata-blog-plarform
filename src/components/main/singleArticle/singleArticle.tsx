@@ -9,7 +9,7 @@ const SingleArticle = () => {
   const { data, error, isLoading } = useGetAnArticleQuery(slug || ""); // Используем пустую строку как fallback.
 
   const navigate = useNavigate();
-  const goBack = () => navigate(-1);
+  const goBack = () => navigate('/articles');
 
   return (
     <div className="single-article-container">
