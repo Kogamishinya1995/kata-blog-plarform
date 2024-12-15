@@ -54,6 +54,7 @@ const CreateArticlePage = () => {
       console.log("Log In successful:", result);
       reset();
       navigate(`/articles/${result.article.slug}`);
+      window.location.reload();
     } catch (err) {
       console.error("Log In failed:", err);
     }

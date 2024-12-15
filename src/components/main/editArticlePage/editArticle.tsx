@@ -1,10 +1,11 @@
 import classNames from "classnames";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useUpdateArticleMutation } from "../../../slices/articlesApi";
 import { useLocation } from 'react-router-dom';
+
 
 interface CreateArticleFormData {
   title: string;
@@ -22,6 +23,7 @@ const EditArticlePage = () => {
     const tags = articleData.tags.map((item) => ({ tags: [item] }));
     const slug = articleData.slug;
     console.log(articleData.text);
+    const [updated, setUpdated] = useState(false);
 
     const {
     register,
@@ -67,7 +69,8 @@ const EditArticlePage = () => {
       }).unwrap();
       console.log("Update successful:", result);
       reset();
-      navigate(`/articles/${result.article.slug}`, { state: { updated: true } });
+      navigate(`/articles/${result.article.slug}`, { state: { replace: true } });
+      window.location.reload();
     } catch (err) {
       console.error("Update failed:", err);
     }

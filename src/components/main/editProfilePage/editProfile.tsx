@@ -51,6 +51,9 @@ const EditProfilePage = () => {
       );
       reset();
       navigate("/");
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     } catch (err) {
       console.error("Update failed:", err);
     }
