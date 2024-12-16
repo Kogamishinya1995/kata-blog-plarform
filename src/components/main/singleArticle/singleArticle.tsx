@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import Modal from 'react-modal';
+import FavoritedComponent from "../../common/favoritedComponent/favoritedComponent";
 
 
 
@@ -78,9 +79,7 @@ const SingleArticle = () => {
             <div className="single-article-header__content">
               <div className="single-article-title">
                 <h5>{data.article.title}</h5>
-                <p className="single-article-likes">
-                  ♡ {data.article.favoritesCount}
-                </p>
+                <FavoritedComponent article={data.article} />
               </div>
               <div className="article-preview__tags">
                 {data.article.tagList?.length ? (
