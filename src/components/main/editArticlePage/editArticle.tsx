@@ -69,8 +69,7 @@ const EditArticlePage = () => {
       }).unwrap();
       console.log("Update successful:", result);
       reset();
-      navigate(`/articles/${result.article.slug}`, { state: { replace: true } });
-      window.location.reload();
+      navigate(`/articles/${result.article.slug}`);
     } catch (err) {
       console.error("Update failed:", err);
     }

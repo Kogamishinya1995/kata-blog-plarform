@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useUpdateUserMutation } from "../../../slices/articlesApi";
+import { articlesApi, useUpdateUserMutation } from "../../../slices/articlesApi";
 import { updateAuthData } from "../../../slices/authSlice";
 
 interface UpdateUserForm {
@@ -51,9 +51,7 @@ const EditProfilePage = () => {
       );
       reset();
       navigate("/");
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
+      dispatch(articlesApi.util.invalidateTags(['Articles']));
     } catch (err) {
       console.error("Update failed:", err);
     }

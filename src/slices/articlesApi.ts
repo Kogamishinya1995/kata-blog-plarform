@@ -1,20 +1,34 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 type GetArticlesQueryArgs = {
   offset?: number;
 };
 
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 export const articlesApi = createApi({
   reducerPath: "articles",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://blog-platform.kata.academy/api",
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token;
+
+      if (token) {
+        headers.set('Authorization', `Token ${token}`);
+      }
+
+      return headers;
+    }
   }),
+  tagTypes: ['Article', 'Articles'],
   endpoints: (builder) => ({
     getArticles: builder.query<{ articles: any[]; articlesCount: number }, GetArticlesQueryArgs>({
       query: ({ offset = 0 }) => `/articles/?offset=${offset}`,
+      providesTags: ['Articles'],
     }),
     getAnArticle: builder.query<any, string>({
       query: (slug) => `/articles/${slug}`,
+      providesTags: (_, __, slug) => [{ type: 'Article', id: slug }],
+      keepUnusedDataFor: 0,
     }),
     registerUser: builder.mutation<any, { username: string; email: string; password: string }>({
       query: (newUser) => ({
@@ -31,36 +45,43 @@ export const articlesApi = createApi({
       }),
     }),
     updateUser: builder.mutation<any, { user: { email: string; password: string; username: string; image: string }; token: string }>({
-      query: ({ user, token }) => ({
+      query: ({ user }) => ({
         url: "/user",
         method: "PUT",
-        headers: {
-          Authorization: `Token ${token}`,
-          "Content-Type": "application/json",
-        },
         body: { user },
       }),
     }),
     createArticle: builder.mutation<any, { article: { title: string; description: string; body: string; tagList: string[] }; token: string }>({
-      query: ({ article, token }) => ({
+      query: ({ article }) => ({
         url: "/articles",
         method: "POST",
-        headers: {
-          Authorization: `Token ${token}`,
-          "Content-Type": "application/json",
-        },
         body: { article: article },
+        invalidatesTags: ['Articles'],
       }),
     }),
     updateArticle: builder.mutation<any, { article: { title: string; description: string; body: string; tagList: string[] }; token: string, slug: string }>({
-      query: ({ article, token, slug }) => ({
+      query: ({ article, slug }) => ({
         url: `/articles/${slug}`,
         method: "PUT",
-        headers: {
-          Authorization: `Token ${token}`,
-          "Content-Type": "application/json",
-        },
         body: { article: article },
+      }),
+    }),
+    deleteArticle: builder.mutation({
+      query: ({ slug }) => ({
+        url: `/articles/${slug}`,
+        method: "DELETE",
+      }),
+    }),
+    favoriteArticle: builder.mutation({
+      query: ({ slug }) => ({
+        url: `/articles/${slug}/favorite`,
+        method: "POST",
+      }),
+    }),
+    unfavoriteArticle: builder.mutation({
+      query: ({ slug }) => ({
+        url: `/articles/${slug}/favorite`,
+        method: "DELETE",
       }),
     }),
   }),
@@ -73,5 +94,8 @@ export const {
   useLogInUserMutation,
   useUpdateUserMutation,
   useCreateArticleMutation,
-  useUpdateArticleMutation
+  useUpdateArticleMutation,
+  useDeleteArticleMutation,
+  useFavoriteArticleMutation,
+  useUnfavoriteArticleMutation
 } = articlesApi;

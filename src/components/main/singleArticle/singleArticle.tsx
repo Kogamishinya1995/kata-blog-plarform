@@ -1,27 +1,77 @@
 import { uniqueId } from "lodash";
 import ReactMarkdown from "react-markdown";
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetAnArticleQuery } from "../../../slices/articlesApi";
+import { articlesApi, useGetAnArticleQuery, useDeleteArticleMutation } from "../../../slices/articlesApi";
 import formatDate from "../../../utils/formatDate";
 import { useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import Modal from 'react-modal';
+
+
+
 
 const SingleArticle = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data, error, isLoading } = useGetAnArticleQuery(slug || "");
-  console.log('дата', data);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
-  const goBack = () => navigate("/articles");
+  const goBack = () => {
+    navigate("/articles");
+    dispatch(articlesApi.util.invalidateTags(['Articles']));
+  } 
 
   const user = useSelector((state) => state.auth.username);
+  const token = useSelector((state) => state.auth.token);
+  const [deleteArticle] = useDeleteArticleMutation();
+
+  const handleDelete = () => {
+    deleteArticle({ token, slug });
+    navigate("/articles");
+    dispatch(articlesApi.util.invalidateTags(['Articles']));
+  };
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+  
+  function closeModal() {
+    setIsOpen(false);
+  }
 
 
   return (
     <div className="single-article-container">
       {isLoading && <p>загрузка статьи...</p>}
       {error && <p>Ошибка при загрузке статьи</p>}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <div className="single-article-modal">
+        Вы действительно хотите удалить статью?
+          <Button variant="btn btn-outline-danger" 
+                onClick={handleDelete}
+                >Удалить статью</Button>
+        </div>
+      </Modal>
       {data ? (
         <div className="single-article">
           <div className="single-article-header">
@@ -60,7 +110,7 @@ const SingleArticle = () => {
                 />
               </div>
               <div className="single-article-edit-button">
-                { user === data.article.author.username ? <Button variant="btn btn-outline-success" 
+                { user === data.article.author.username ? <div> <Button variant="btn btn-outline-success" 
                 onClick={() => navigate(`/articles/${slug}/edit`, { state: {
                   title: data.article.title,
                   description: data.article.description,
@@ -68,7 +118,11 @@ const SingleArticle = () => {
                   tags: data.article.tagList,
                   slug: data.article.slug,
                 } })}
-                >Edit</Button> : 'не я автор' }
+                >Edit</Button>
+                <Button variant="btn btn-outline-danger" 
+                onClick={openModal}
+                >Delete</Button>
+                </div> : null }
               </div>
             </div>
           </div>
