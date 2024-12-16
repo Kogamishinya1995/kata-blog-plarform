@@ -1,11 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import ArticleList from "./articlesLIst/articlesLIst";
-import SingleArticle from "./singleArticle/singleArticle";
-import SignUpPage from "./signUpPage/signUpPage";
-import SignInPage from "./signInPage/signInPage";
-import EditProfilePage from "./editProfilePage/editProfile";
 import CreateArticlePage from "./createArticlePage/createArticle";
 import EditArticlePage from "./editArticlePage/editArticle";
+import EditProfilePage from "./editProfilePage/editProfile";
+import SignInPage from "./signInPage/signInPage";
+import SignUpPage from "./signUpPage/signUpPage";
+import SingleArticle from "./singleArticle/singleArticle";
+import RequireAuth from "../hoc/RequireAuth";
 
 const MainComponent = () => (
   <main className="main">
@@ -15,9 +16,30 @@ const MainComponent = () => (
       <Route path="/articles/:slug" element={<SingleArticle />} />
       <Route path="/sign-up" element={<SignUpPage />} />
       <Route path="/sign-in" element={<SignInPage />} />
-      <Route path="/profile" element={<EditProfilePage />} />
-      <Route path="/new-article" element={<CreateArticlePage />} />
-      <Route path="/articles/:slug/edit" element={<EditArticlePage />} />
+      <Route
+        path="/profile"
+        element={
+          <RequireAuth>
+            <EditProfilePage />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/new-article"
+        element={
+          <RequireAuth>
+            <CreateArticlePage />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/articles/:slug/edit"
+        element={
+          <RequireAuth>
+            <EditArticlePage />
+          </RequireAuth>
+        }
+      />
     </Routes>
   </main>
 );

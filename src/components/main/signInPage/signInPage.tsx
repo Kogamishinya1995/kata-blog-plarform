@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useLogInUserMutation } from "../../../slices/articlesApi";
 import { setAuthData } from "../../../slices/authSlice";
 
@@ -23,6 +23,9 @@ const SignUpPage = () => {
   const navigate = useNavigate();
 
   const [logInUser, { isLoading, error }] = useLogInUserMutation();
+  
+  // const location = useLocation();
+  // const fromPage = location.state?.from?.pathname || '/';
 
   const onSubmit = async (data: SignInFormData) => {
     try {

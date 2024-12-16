@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
 import ProfileButtons from "./profileButtons/profileButtons";
 import SignButtons from "./signButtons/signButtons";
+import { RootState } from "../../slices";
 
 const Header = () => {
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   return (
     <div className="header-container">

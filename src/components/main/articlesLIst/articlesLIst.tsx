@@ -21,7 +21,7 @@ const ArticleList = () => {
   useEffect(() => {
     setSearchParams({ page: currentPage.toString() });
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [currentPage, setSearchParams, data]);
+  }, [currentPage, setSearchParams]);
 
   return (
     <div className="articles-list">

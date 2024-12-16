@@ -2,11 +2,12 @@ import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { clearAuthData } from "../../../slices/authSlice";
+import { RootState } from "../../../slices";
 
 const ProfileButtons = () => {
   const dispatch = useDispatch();
-  const name = useSelector((state) => state.auth.username);
-  const image = useSelector((state) => state.auth.image);
+  const name = useSelector((state: RootState) => state.auth.username);
+  const image = useSelector((state: RootState) => state.auth.image);
 
   return (
     <div className="profile-buttons">
