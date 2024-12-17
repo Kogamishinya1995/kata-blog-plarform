@@ -4,11 +4,11 @@ import Badge from 'react-bootstrap/Badge';
 
 
 const TagsComponent = ({ article }: { article: Article }) => {
-  return <div className="article-preview__tags">
+  return <div className="tags">
     {article.tagList?.length ? (
       article.tagList.map((item) => <Badge bg="secondary" className="badge badge-pill badge-light" key={uniqueId("tag_")}>{item}</Badge>)
     ) : (
-      <p>#безтегов</p>
+      <Badge bg="secondary" className="badge badge-pill badge-light">#безтегов</Badge>
     )}
   </div>;
 };

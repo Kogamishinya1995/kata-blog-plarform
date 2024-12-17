@@ -6,7 +6,9 @@
 @use './components/main/articlesList/articlesList.scss';
 @use './components/main/signUpPage/signUpPage.scss';
 @use './components/header/profileButtons/profileButtons.scss';
-@use './components/common/favoritedComponent/favoriedComponent.scss';
+@use './components/common/favoritedComponent/favoritedComponent.scss';
+@use './components/common/authorComponent/authorComponent.scss';
+@use './components/common/tagsComponent/tagsComponent.scss';
 
 
   body {

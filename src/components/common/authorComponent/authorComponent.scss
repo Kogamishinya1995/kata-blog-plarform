@@ -1,0 +1,29 @@
+.author-info {
+    display: flex;
+    flex-direction: row;
+    padding-top: 15px;
+    padding-right: 20px;
+}
+
+.acreate-info {
+    padding-right: 20px;
+}
+
+.author-name {
+    font-family: Inter UI;
+    font-size: 25px;
+    line-height: 28px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #000000D9;
+    padding-right: 10px;
+}
+
+.avatar {
+    width: 46px;
+    height: 46px;
+    object-fit: cover; 
+    border-radius: 50%;
+    margin-left: 10px; 
+}

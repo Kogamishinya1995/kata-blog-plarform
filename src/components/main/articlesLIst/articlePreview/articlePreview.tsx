@@ -1,9 +1,8 @@
-import uniqueId from "lodash/uniqueId";
 import { Article } from "../../../../types";
-import formatDate from "../../../../utils/formatDate";
 import shortenDescription from "../../../../utils/shortenDescription";
 import FavoritedComponent from "../../../common/favoritedComponent/favoritedComponent";
 import TagsComponent from "../../../common/tagsComponent/tagsComponent";
+import AuthorComponent from "../../../common/authorComponent/authorComponent";
 
 const ArticlePreview = (article: Article) => {
 
@@ -20,17 +19,7 @@ const ArticlePreview = (article: Article) => {
           {shortenDescription(article.description)}
         </div>
       </div>
-      <div className="article-preview__author-info">
-        <div className="article-preview__create-info">
-          <p>{article.author.username}</p>
-          <p>{formatDate(article.createdAt)}</p>
-        </div>
-        <img
-          className="article-preview__avatar"
-          src={article.author.image}
-          alt=""
-        />
-      </div>
+      <AuthorComponent article={article} />
     </div>
   );
 };
