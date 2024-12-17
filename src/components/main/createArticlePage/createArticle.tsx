@@ -1,9 +1,11 @@
 import classNames from "classnames";
-import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useCreateArticleMutation } from "../../../slices/articlesApi";
 import { RootState } from "../../../slices";
+import Button from "react-bootstrap/Button";
+import { Input } from "antd";
 
 interface CreateArticleFormData {
   title: string;
@@ -27,7 +29,7 @@ const CreateArticlePage = () => {
   const navigate = useNavigate();
   const token = useSelector((state: RootState) => state.auth.token);
 
-  const [createArticle, { isLoading, error }] = useCreateArticleMutation();
+  const [createArticle] = useCreateArticleMutation();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "test",
@@ -107,30 +109,34 @@ const CreateArticlePage = () => {
             </p>
           )}
         </label>
-        <label className="signIn-form__tags">
+        <label className="create-form-tags-container">
           <ul>
             {fields.map((item, index) => (
-              <li key={item.id}>
-                <input {...register(`test.${index}.tags` as const)} />
-                <button
+              <li className="create-form-tags" key={item.id}>
+                <Input {...register(`test.${index}.tags` as const)} className="create-form-tags__input" />
+                <Button
+                  variant="btn btn-outline-danger"
+                  className="create-form-tags__delete-button"
                   type="button"
                   onClick={() => {
                     remove(index);
                   }}
                 >
                   Delete
-                </button>
+                </Button>
               </li>
             ))}
           </ul>
-          <button
-            type="button"
+          <Button
+          className="create-form-tags__append-button"
+           variant="btn btn-outline-primary"
+           type="button"
             onClick={() => {
               append({ tags: "" });
             }}
           >
             append
-          </button>
+          </Button>
           {errors.text && (
             <p className="signIn-form__field-error" style={{ color: "red" }}>
               {String(errors.text.message)}

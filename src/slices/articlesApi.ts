@@ -51,7 +51,7 @@ export const articlesApi = createApi({
         body: { user },
       }),
     }),
-    createArticle: builder.mutation<any, { article: { title: string; description: string; body: string; tagList: string[] }; token: string }>({
+    createArticle: builder.mutation<any, { article: { title: string; description: string; body: string; tagList: string[] }; token: string | null }>({
       query: ({ article }) => ({
         url: "/articles",
         method: "POST",
