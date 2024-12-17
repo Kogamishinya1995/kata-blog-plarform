@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useCreateArticleMutation } from '../../../slices/articlesApi';
 import { RootState } from '../../../slices';
 import { CreateArticleFormData } from '../../../types';
