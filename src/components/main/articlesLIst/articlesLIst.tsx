@@ -25,8 +25,8 @@ const ArticleList = () => {
 
   return (
     <div className="articles-list">
-      {isLoading && <p>Loading...</p>}
-      {error && <p>Error loading articles</p>}
+      {isLoading && <p>Загрузка...</p>}
+      {error && <p>Ошибка при загрузке статей</p>}
       {data ? (
         data.articles.length > 0 ? (
           data.articles.map((article: Article) => (
@@ -40,10 +40,10 @@ const ArticleList = () => {
             </div>
           ))
         ) : (
-          <p>No articles available</p>
+          <p>В настоящий момент нет опубликованных статей</p>
         )
       ) : (
-        !isLoading && <p>No articles available</p>
+        !isLoading && <p>В настоящий момент нет опубликованных статей</p>
       )}
       <ResponsivePagination
         current={currentPage}

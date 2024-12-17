@@ -1,10 +1,9 @@
 import classNames from "classnames";
-import { useEffect } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useCreateArticleMutation } from "../../../slices/articlesApi";
+import { RootState } from "../../../slices";
 
 interface CreateArticleFormData {
   title: string;
@@ -25,9 +24,8 @@ const CreateArticlePage = () => {
   } = useForm<CreateArticleFormData>({
     mode: "onChange",
   });
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const [createArticle, { isLoading, error }] = useCreateArticleMutation();
   const { fields, append, remove } = useFieldArray({
