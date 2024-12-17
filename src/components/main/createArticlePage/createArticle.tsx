@@ -1,8 +1,9 @@
 import classNames from "classnames";
-import { useForm, useFieldArray } from "react-hook-form";
 import Button from "react-bootstrap/Button";
-import { CreateArticleFormData } from "../../../types";
+import { useForm, useFieldArray } from "react-hook-form";
+import FieldComponent from "../../common/fieldComponent/FieldComponent";
 import useCreateArticle from "./useCreateArticle";
+import { CreateArticleFormData } from "../../../types";
 
 const CreateArticlePage = () => {
   const {
@@ -31,39 +32,26 @@ const CreateArticlePage = () => {
     <div className="form-container">
       <h4>Create new article</h4>
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <label className="form__field">
-          <p className="form__field-name">Title</p>
-          <input
-            type="text"
-            {...register("title", {
-              required: "Поле является обязательным",
-              minLength: {
-                value: 1,
-                message: "Минимум 1 символа",
-              },
-              
-            })}
-          />
-          {errors.title && (
-            <p className="form__field-error" style={{ color: "red" }}>
-              {String(errors.title.message)}
-            </p>
-          )}
-        </label>
-        <label className="form__field">
-          <p className="form__field-name">Short description</p>
-          <input
-            type="shortDescription"
-            {...register("shortDescription", {
-              required: "Поле является обязательным",
-            })}
-          />
-          {errors.shortDescription && (
-            <p className="form__field-error" style={{ color: "red" }}>
-              {String(errors.shortDescription.message)}
-            </p>
-          )}
-        </label>
+        <FieldComponent
+          title="Title"
+          type="text"
+          {...register("title", {
+            required: "Поле является обязательным",
+            minLength: {
+              value: 3,
+              message: "Минимум 1 символа",
+            },
+          })}
+          error={errors.title}
+        />
+        <FieldComponent
+          title="Short description"
+          type="shortDescription"
+          {...register("shortDescription", {
+            required: "Поле является обязательным",
+          })}
+          error={errors.shortDescription}
+        />
         <label className="form__field">
           <p className="form__field-name">Text</p>
           <textarea
@@ -82,7 +70,10 @@ const CreateArticlePage = () => {
           <ul>
             {fields.map((item, index) => (
               <li className="form-tags" key={item.id}>
-                <input {...register(`test.${index}.tags` as const)} className="form-tags__input" />
+                <input
+                  {...register(`test.${index}.tags` as const)}
+                  className="form-tags__input"
+                />
                 <Button
                   variant="btn btn-outline-danger"
                   className="form-tags__delete-button"
@@ -97,9 +88,9 @@ const CreateArticlePage = () => {
             ))}
           </ul>
           <Button
-          className="form-tags__append-button"
-           variant="btn btn-outline-primary"
-           type="button"
+            className="form-tags__append-button"
+            variant="btn btn-outline-primary"
+            type="button"
             onClick={() => {
               append({ tags: "" });
             }}
