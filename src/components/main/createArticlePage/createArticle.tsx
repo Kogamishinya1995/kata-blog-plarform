@@ -60,11 +60,11 @@ const CreateArticlePage = () => {
   };
 
   return (
-    <div className="signIn-container">
+    <div className="form-container">
       <h4>Create new article</h4>
-      <form className="signIn-form" onSubmit={handleSubmit(onSubmit)}>
-        <label className="signIn-form__field">
-          <p className="signIn-form__field-name">Title</p>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <label className="form__field">
+          <p className="form__field-name">Title</p>
           <input
             type="text"
             {...register("title", {
@@ -76,12 +76,12 @@ const CreateArticlePage = () => {
             })}
           />
           {errors.title && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.title.message)}
             </p>
           )}
         </label>
-        <label className="signIn-form__field">
+        <label className="form__field">
           <p className="signIn-form__field-name">Short description</p>
           <input
             type="shortDescription"
@@ -90,13 +90,13 @@ const CreateArticlePage = () => {
             })}
           />
           {errors.shortDescription && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.shortDescription.message)}
             </p>
           )}
         </label>
-        <label className="signIn-form__field">
-          <p className="signIn-form__field-name">Text</p>
+        <label className="form__field">
+          <p className="form__field-name">Text</p>
           <textarea
             rows={5}
             {...register("text", {
@@ -104,19 +104,19 @@ const CreateArticlePage = () => {
             })}
           />
           {errors.text && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.text.message)}
             </p>
           )}
         </label>
-        <label className="create-form-tags-container">
+        <label className="form-tags-container">
           <ul>
             {fields.map((item, index) => (
-              <li className="create-form-tags" key={item.id}>
-                <Input {...register(`test.${index}.tags` as const)} className="create-form-tags__input" />
+              <li className="form-tags" key={item.id}>
+                <input {...register(`test.${index}.tags` as const)} className="form-tags__input" />
                 <Button
                   variant="btn btn-outline-danger"
-                  className="create-form-tags__delete-button"
+                  className="form-tags__delete-button"
                   type="button"
                   onClick={() => {
                     remove(index);
@@ -138,7 +138,7 @@ const CreateArticlePage = () => {
             append
           </Button>
           {errors.text && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.text.message)}
             </p>
           )}

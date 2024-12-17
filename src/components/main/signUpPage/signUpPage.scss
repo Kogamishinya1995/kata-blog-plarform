@@ -1,4 +1,4 @@
-.signIn-container {
+.form-container {
     background-color: white;
     width: 50vw;
     margin-top: 10vh;
@@ -17,7 +17,7 @@ padding-bottom: 10px;
     }
 }
 
-.signIn-form {
+.form {
     display: flex;
     flex-direction: column;
     margin-left: auto;
@@ -25,7 +25,7 @@ padding-bottom: 10px;
     width: 60%;
 }
 
-.signIn-form__field {
+.form__field {
     display: flex;
     flex-direction: column;
     padding-bottom: 15px;
@@ -35,12 +35,12 @@ padding-bottom: 10px;
     position: relative;
 }
 
-.signIn-form__field-error {
+.form__field-error {
     position: absolute;
     bottom: -30px;
 }
 
-.signIn-form__field-name {
+.form__field-name {
 font-family: Roboto;
 font-size: 18px;
 font-weight: 400;
@@ -50,7 +50,7 @@ text-underline-position: from-font;
 text-decoration-skip-ink: none;
 }
 
-.signIn-form__checkbox {
+.form__checkbox {
     margin-top: 10px;
     margin-bottom: 15px;
     position: relative;
@@ -96,7 +96,7 @@ text-decoration-skip-ink: none;
     background-color: #45a049;
 }
 
-.signIn-form_have-Account-Message {
+.form_have-Account-Message {
     font-family: Roboto;
 font-size: 20px;
 font-weight: 400;
@@ -109,7 +109,7 @@ padding-bottom: 20px;
 }
 
 
-.signIn-form__checkbox-error {
+.form__checkbox-error {
     margin-top: 5px; 
     color: red;
     font-size: 14px;

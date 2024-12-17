@@ -50,11 +50,11 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="signIn-container">
+    <div className="form-container">
       <h4>Sign In</h4>
-      <form className="signIn-form" onSubmit={handleSubmit(onSubmit)}>
-        <label className="signIn-form__field">
-          <p className="signIn-form__field-name">Email address</p>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <label className="form__field">
+          <p className="form__field-name">Email address</p>
           <input
             type="text"
             {...register("email", {
@@ -66,12 +66,12 @@ const SignUpPage = () => {
             })}
           />
           {errors.email && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.email.message)}
             </p>
           )}
         </label>
-        <label className="signIn-form__field">
+        <label className="form__field">
           <p className="signIn-form__field-name">Password</p>
           <input
             type="password"
@@ -80,7 +80,7 @@ const SignUpPage = () => {
             })}
           />
           {errors.password && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.password.message)}
             </p>
           )}
@@ -95,7 +95,7 @@ const SignUpPage = () => {
           })}
         />
       </form>
-      <p className="signIn-form_have-Account-Message">
+      <p className="form_have-Account-Message">
         Already have an account? Sign In.
       </p>
     </div>

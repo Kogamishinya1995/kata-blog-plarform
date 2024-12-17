@@ -54,11 +54,11 @@ const SignUpPage = () => {
   const password = watch("password");
 
   return (
-    <div className="signIn-container">
+    <div className="form-container">
       <h4>Create new account</h4>
-      <form className="signIn-form" onSubmit={handleSubmit(onSubmit)}>
-        <label className="signIn-form__field">
-          <p className="signIn-form__field-name">Userame</p>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <label className="form__field">
+          <p className="form__field-name">Username</p>
           <input
             type="text"
             {...register("userName", {
@@ -74,13 +74,13 @@ const SignUpPage = () => {
             })}
           />
           {errors.userName && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.userName.message)}
             </p>
           )}
         </label>
-        <label className="signIn-form__field">
-          <p className="signIn-form__field-name">Email address</p>
+        <label className="form__field">
+          <p className="form__field-name">Email address</p>
           <input
             type="text"
             {...register("email", {
@@ -92,13 +92,13 @@ const SignUpPage = () => {
             })}
           />
           {errors.email && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.email.message)}
             </p>
           )}
         </label>
-        <label className="signIn-form__field">
-          <p className="signIn-form__field-name">Password</p>
+        <label className="form__field">
+          <p className="form__field-name">Password</p>
           <input
             type="password"
             {...register("password", {
@@ -114,12 +114,12 @@ const SignUpPage = () => {
             })}
           />
           {errors.password && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.password.message)}
             </p>
           )}
         </label>
-        <label className="signIn-form__field">
+        <label className="form__field">
           <p className="signIn-form__field-name">Repeat Password</p>
           <input
             type="password"
@@ -129,12 +129,12 @@ const SignUpPage = () => {
             })}
           />
           {errors.repeatPassword && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.repeatPassword.message)}
             </p>
           )}
         </label>
-        <label className="signIn-form__checkbox">
+        <label className="form__checkbox">
           <input
             type="checkbox"
             {...register("agreement", {
@@ -143,7 +143,7 @@ const SignUpPage = () => {
           />
           I agree to the processing of personal data
           {errors.agreement && (
-            <p className="signIn-form__checkbox-error" style={{ color: "red" }}>
+            <p className="form__checkbox-error" style={{ color: "red" }}>
               {String(errors.agreement.message)}
             </p>
           )}
@@ -158,7 +158,7 @@ const SignUpPage = () => {
           })}
         />
       </form>
-      <p className="signIn-form_have-Account-Message">
+      <p className="form_have-Account-Message">
         Already have an account? Sign In.
       </p>
     </div>

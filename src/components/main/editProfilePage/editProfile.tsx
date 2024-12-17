@@ -58,11 +58,11 @@ const EditProfilePage = () => {
   };
 
   return (
-    <div className="signIn-container">
+    <div className="form-container">
       <h4>Edit Profile</h4>
-      <form className="signIn-form" onSubmit={handleSubmit(onSubmit)}>
-        <label className="signIn-form__field">
-          <p className="signIn-form__field-name">Username</p>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <label className="form__field">
+          <p className="form__field-name">Username</p>
           <input
             type="text"
             {...register("userName", {
@@ -73,12 +73,12 @@ const EditProfilePage = () => {
             })}
           />
           {errors.userName && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.userName.message)}
             </p>
           )}
         </label>
-        <label className="signIn-form__field">
+        <label className="form__field">
           <p className="signIn-form__field-name">Email address</p>
           <input
             type="text"
@@ -91,12 +91,12 @@ const EditProfilePage = () => {
             })}
           />
           {errors.email && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.email.message)}
             </p>
           )}
         </label>
-        <label className="signIn-form__field">
+        <label className="form__field">
           <p className="signIn-form__field-name">New Password</p>
           <input
             type="password"
@@ -112,13 +112,13 @@ const EditProfilePage = () => {
             })}
           />
           {errors.password && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.password.message)}
             </p>
           )}
         </label>
-        <label className="signIn-form__field">
-          <p className="signIn-form__field-name">Avatar image (url)</p>
+        <label className="form__field">
+          <p className="form__field-name">Avatar image (url)</p>
           <input
             type="text"
             {...register("avatar", {
@@ -129,7 +129,7 @@ const EditProfilePage = () => {
             })}
           />
           {errors.avatar && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.avatar.message)}
             </p>
           )}
@@ -144,7 +144,7 @@ const EditProfilePage = () => {
           })}
         />
       </form>
-      <p className="signIn-form_have-Account-Message">
+      <p className="form_have-Account-Message">
         Already have an account? Sign In.
       </p>
     </div>

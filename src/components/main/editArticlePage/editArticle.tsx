@@ -1,10 +1,12 @@
 import classNames from "classnames";
-import { useEffect, useState } from "react";
-import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { useState } from "react";
+import { useForm, useFieldArray } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useUpdateArticleMutation } from "../../../slices/articlesApi";
 import { useLocation } from 'react-router-dom';
+import Button from "react-bootstrap/Button";
+import { Input } from "antd";
 
 
 interface CreateArticleFormData {
@@ -77,11 +79,11 @@ const EditArticlePage = () => {
 
 
   return (
-    <div className="signIn-container">
+    <div className="form-container">
       <h4>Edit Article</h4>
-      <form className="signIn-form" onSubmit={handleSubmit(onSubmit)}>
-        <label className="signIn-form__field">
-          <p className="signIn-form__field-name">Title</p>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <label className="form__field">
+          <p className="form__field-name">Title</p>
           <input
             type="text"
             {...register("title", {
@@ -93,13 +95,13 @@ const EditArticlePage = () => {
             })}
           />
           {errors.title && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.title.message)}
             </p>
           )}
         </label>
-        <label className="signIn-form__field">
-          <p className="signIn-form__field-name">Short description</p>
+        <label className="form__field">
+          <p className="form__field-name">Short description</p>
           <input
             type="shortDescription"
             {...register("shortDescription", {
@@ -107,13 +109,13 @@ const EditArticlePage = () => {
             })}
           />
           {errors.shortDescription && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.shortDescription.message)}
             </p>
           )}
         </label>
-        <label className="signIn-form__field">
-          <p className="signIn-form__field-name">Text</p>
+        <label className="form__field">
+          <p className="form__field-name">Text</p>
           <textarea
             rows={5}
             {...register("text", {
@@ -121,37 +123,41 @@ const EditArticlePage = () => {
             })}
           />
           {errors.text && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.text.message)}
             </p>
           )}
         </label>
-        <label className="signIn-form__tags">
+        <label className="form-tags-container">
           <ul>
             {fields.map((item, index) => (
-              <li key={item.id}>
-                <input {...register(`test.${index}.tags` as const)} />
-                <button
+              <li className="form-tags" key={item.id}>
+                <input {...register(`test.${index}.tags` as const)} className="form-tags__input" />
+                <Button
+                  variant="btn btn-outline-danger"
+                  className="form-tags__delete-button"
                   type="button"
                   onClick={() => {
                     remove(index);
                   }}
                 >
                   Delete
-                </button>
+                </Button>
               </li>
             ))}
           </ul>
-          <button
-            type="button"
+          <Button
+          className="create-form-tags__append-button"
+           variant="btn btn-outline-primary"
+           type="button"
             onClick={() => {
               append({ tags: "" });
             }}
           >
             append
-          </button>
+          </Button>
           {errors.text && (
-            <p className="signIn-form__field-error" style={{ color: "red" }}>
+            <p className="form__field-error" style={{ color: "red" }}>
               {String(errors.text.message)}
             </p>
           )}
