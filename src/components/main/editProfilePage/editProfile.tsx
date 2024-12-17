@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { articlesApi, useUpdateUserMutation } from "../../../slices/articlesApi";
 import { updateAuthData } from "../../../slices/authSlice";
+import FormLabel from "../FormLabel";
 
 interface UpdateUserForm {
   userName: string;
@@ -79,7 +80,7 @@ const EditProfilePage = () => {
           )}
         </label>
         <label className="form__field">
-          <p className="signIn-form__field-name">Email address</p>
+          <p className="form__field-name">Email address</p>
           <input
             type="text"
             {...register("email", {
@@ -97,7 +98,7 @@ const EditProfilePage = () => {
           )}
         </label>
         <label className="form__field">
-          <p className="signIn-form__field-name">New Password</p>
+          <p className="form__field-name">New Password</p>
           <input
             type="password"
             {...register("password", {

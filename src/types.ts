@@ -17,3 +17,12 @@ export interface Article {
   description: string;
   favoritesCount: number;
 }
+
+export interface CreateArticleFormData {
+  title: string;
+  shortDescription: string;
+  text: string;
+  test: {
+    tags: string | string[];
+  }[];
+}

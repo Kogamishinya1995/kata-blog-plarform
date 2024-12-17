@@ -59,7 +59,7 @@ export const articlesApi = createApi({
         invalidatesTags: ['Articles'],
       }),
     }),
-    updateArticle: builder.mutation<any, { article: { title: string; description: string; body: string; tagList: string[] }; token: string, slug: string }>({
+    updateArticle: builder.mutation<any, { article: { title: string; description: string; body: string; tagList: string[] }; token: string | null, slug: string }>({
       query: ({ article, slug }) => ({
         url: `/articles/${slug}`,
         method: "PUT",

@@ -1,31 +1,20 @@
 import classNames from "classnames";
-import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useUpdateArticleMutation } from "../../../slices/articlesApi";
 import { useLocation } from 'react-router-dom';
 import Button from "react-bootstrap/Button";
-import { Input } from "antd";
+import { RootState } from "../../../slices";
+import { CreateArticleFormData } from "../../../types";
 
-
-interface CreateArticleFormData {
-  title: string;
-  shortDescription: string;
-  text: string;
-  test: {
-    tags: string | string[];
-  }[];
-}
 
 const EditArticlePage = () => {
     
     const location = useLocation();
     const articleData = location.state;
-    const tags = articleData.tags.map((item) => ({ tags: [item] }));
+    const tags = articleData.tags.map((item: string) => ({ tags: [item] }));
     const slug = articleData.slug;
-    console.log(articleData.text);
-    const [updated, setUpdated] = useState(false);
 
     const {
     register,
@@ -43,7 +32,7 @@ const EditArticlePage = () => {
       },
   });
   const navigate = useNavigate();
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const [updateArticle, { isLoading, error }] = useUpdateArticleMutation();
   const { fields, append, remove } = useFieldArray({
@@ -147,7 +136,7 @@ const EditArticlePage = () => {
             ))}
           </ul>
           <Button
-          className="create-form-tags__append-button"
+          className="form-tags__append-button"
            variant="btn btn-outline-primary"
            type="button"
             onClick={() => {

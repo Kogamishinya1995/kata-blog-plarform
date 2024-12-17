@@ -24,9 +24,6 @@ const SignUpPage = () => {
 
   const [logInUser, { isLoading, error }] = useLogInUserMutation();
   
-  // const location = useLocation();
-  // const fromPage = location.state?.from?.pathname || '/';
-
   const onSubmit = async (data: SignInFormData) => {
     try {
       const result = await logInUser({
@@ -72,7 +69,7 @@ const SignUpPage = () => {
           )}
         </label>
         <label className="form__field">
-          <p className="signIn-form__field-name">Password</p>
+          <p className="form__field-name">Password</p>
           <input
             type="password"
             {...register("password", {

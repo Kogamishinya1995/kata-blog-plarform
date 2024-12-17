@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../../../slices/articlesApi";
 import { setAuthData } from "../../../slices/authSlice";
 
+
 interface SignUpFormData {
   userName: string;
   email: string;
@@ -120,7 +121,7 @@ const SignUpPage = () => {
           )}
         </label>
         <label className="form__field">
-          <p className="signIn-form__field-name">Repeat Password</p>
+          <p className="form__field-name">Repeat Password</p>
           <input
             type="password"
             {...register("repeatPassword", {

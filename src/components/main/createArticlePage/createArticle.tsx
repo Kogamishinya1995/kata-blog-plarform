@@ -1,20 +1,8 @@
 import classNames from "classnames";
 import { useForm, useFieldArray } from "react-hook-form";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useCreateArticleMutation } from "../../../slices/articlesApi";
-import { RootState } from "../../../slices";
 import Button from "react-bootstrap/Button";
-import { Input } from "antd";
-
-interface CreateArticleFormData {
-  title: string;
-  shortDescription: string;
-  text: string;
-  test: {
-    tags: string | string[];
-  }[];
-}
+import { CreateArticleFormData } from "../../../types";
+import useCreateArticle from "./useCreateArticle";
 
 const CreateArticlePage = () => {
   const {
@@ -26,10 +14,7 @@ const CreateArticlePage = () => {
   } = useForm<CreateArticleFormData>({
     mode: "onChange",
   });
-  const navigate = useNavigate();
-  const token = useSelector((state: RootState) => state.auth.token);
 
-  const [createArticle] = useCreateArticleMutation();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "test",
@@ -40,24 +25,7 @@ const CreateArticlePage = () => {
     .filter((item) => item !== "" && item !== undefined)
     .flat();
 
-  const onSubmit = async (data: CreateArticleFormData) => {
-    try {
-      const result = await createArticle({
-        article: {
-          title: data.title,
-          description: data.shortDescription,
-          body: data.text,
-          tagList: filtredtags,
-        },
-        token,
-      }).unwrap();
-      console.log("Log In successful:", result);
-      reset();
-      navigate(`/articles/${result.article.slug}`);
-    } catch (err) {
-      console.error("Log In failed:", err);
-    }
-  };
+  const onSubmit = useCreateArticle(reset, filtredtags);
 
   return (
     <div className="form-container">
@@ -73,6 +41,7 @@ const CreateArticlePage = () => {
                 value: 1,
                 message: "Минимум 1 символа",
               },
+              
             })}
           />
           {errors.title && (
@@ -82,7 +51,7 @@ const CreateArticlePage = () => {
           )}
         </label>
         <label className="form__field">
-          <p className="signIn-form__field-name">Short description</p>
+          <p className="form__field-name">Short description</p>
           <input
             type="shortDescription"
             {...register("shortDescription", {
@@ -128,7 +97,7 @@ const CreateArticlePage = () => {
             ))}
           </ul>
           <Button
-          className="create-form-tags__append-button"
+          className="form-tags__append-button"
            variant="btn btn-outline-primary"
            type="button"
             onClick={() => {
