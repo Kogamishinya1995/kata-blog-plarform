@@ -5,9 +5,9 @@ import { CreateArticleFormData } from "../../../types";
 import FieldComponent from "../../common/fieldComponent/FieldComponent";
 import FieldTextAreaComponent from "../../common/fieldTextArea/fieldTextArea";
 import SubmitInput from "../../common/submitInput/submitInput";
+import ModalComponent from "../../common/modalComponent/modalComponent";
 
 const CreateArticlePage = () => {
-  
   const {
     register,
     formState: { errors, isValid },
@@ -28,7 +28,7 @@ const CreateArticlePage = () => {
     .filter((item) => item !== "" && item !== undefined)
     .flat();
 
-    const { onSubmit, error } = useCreateArticle(reset, filtredtags);
+  const { onSubmit, error } = useCreateArticle(reset, filtredtags);
 
   return (
     <div className="form-container">
@@ -41,7 +41,7 @@ const CreateArticlePage = () => {
             required: "Поле является обязательным",
             minLength: {
               value: 3,
-              message: "Минимум 1 символа",
+              message: "Минимум 3 символа",
             },
           })}
           error={errors.title}
@@ -100,7 +100,9 @@ const CreateArticlePage = () => {
         </label>
         <SubmitInput value="send" isValid={isValid} />
       </form>
-      {error && <p className="error" style={{ color: 'red' }}>{error}</p>} 
+      {error && (
+  <ModalComponent error={error} />
+)}
     </div>
   );
 };

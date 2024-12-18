@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { articlesApi, useUpdateUserMutation } from "../../../slices/articlesApi";
 import { updateAuthData } from "../../../slices/authSlice";
-import FormLabel from "../FormLabel";
+import { RootState } from "../../../slices";
 
 interface UpdateUserForm {
   userName: string;
@@ -25,7 +25,7 @@ const EditProfilePage = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const [updateUser, { isLoading, error }] = useUpdateUserMutation();
 
@@ -145,9 +145,6 @@ const EditProfilePage = () => {
           })}
         />
       </form>
-      <p className="form_have-Account-Message">
-        Already have an account? Sign In.
-      </p>
     </div>
   );
 };

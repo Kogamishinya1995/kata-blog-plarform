@@ -6,3 +6,4 @@ export default function shortenDescription(str: string): string {
           .join(" ")}...`
       : str;
   }
+  
