@@ -44,7 +44,7 @@ export const articlesApi = createApi({
         body: { user: userData },
       }),
     }),
-    updateUser: builder.mutation<any, { user: { email: string; password: string; username: string; image: string }; token: string }>({
+    updateUser: builder.mutation<any, { user: { email: string; password: string; username: string; image: string }; token: string | null }>({
       query: ({ user }) => ({
         url: "/user",
         method: "PUT",

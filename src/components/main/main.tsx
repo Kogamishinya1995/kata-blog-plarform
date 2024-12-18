@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import ArticleList from "./articlesLIst/articlesLIst";
 import CreateArticlePage from "./createArticlePage/createArticle";
 import EditArticlePage from "./editArticlePage/editArticle";
-import EditProfilePage from "./editProfilePage/editProfile";
+import EditProfilePage from "./updateProfilePage/updateProfile";
 import SignInPage from "./signInPage/signInPage";
 import SignUpPage from "./signUpPage/signUpPage";
 import SingleArticle from "./singleArticle/singleArticle";

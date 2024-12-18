@@ -35,7 +35,7 @@ const useUpdateArticle = (reset: () => void, filtredtags: string[], slug: string
       } else if (isErrorWithMessage(err)) { 
         errMsg = err.message; 
       } 
-      setError(`Извините, возникла ошибка при создании статьи:  ${errMsg}`);
+      setError(`Извините, возникла ошибка при обновлении статьи:  ${errMsg}`);
     }
   };
 

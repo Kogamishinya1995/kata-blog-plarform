@@ -112,7 +112,9 @@ const EditArticlePage = () => {
         </label>
         <SubmitInput value="edit" isValid={isValid} />
       </form>
-      <ModalComponent error={error} />
+      {error && (
+  <ModalComponent error={error} />
+)}
     </div>
   );
 };

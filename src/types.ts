@@ -26,3 +26,23 @@ export interface CreateArticleFormData {
     tags: string | string[];
   }[];
 }
+
+export interface UpdateUserForm {
+  userName: string;
+  email: string;
+  password: string;
+  avatar: string;
+}
+
+export interface SignInFormData {
+  email: string;
+  password: string;
+}
+
+export interface SignUpFormData {
+  userName: string;
+  email: string;
+  password: string;
+  repeatPassword: string;
+  agreement: boolean;
+}

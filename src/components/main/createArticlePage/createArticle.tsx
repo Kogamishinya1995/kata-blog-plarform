@@ -92,11 +92,6 @@ const CreateArticlePage = () => {
           >
             append
           </Button>
-          {errors.text && (
-            <p className="form__field-error" style={{ color: "red" }}>
-              {String(errors.text.message)}
-            </p>
-          )}
         </label>
         <SubmitInput value="send" isValid={isValid} />
       </form>

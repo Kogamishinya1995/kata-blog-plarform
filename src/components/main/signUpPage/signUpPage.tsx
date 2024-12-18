@@ -1,18 +1,10 @@
 import classNames from "classnames";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useRegisterUserMutation } from "../../../slices/articlesApi";
-import { setAuthData } from "../../../slices/authSlice";
-
-
-interface SignUpFormData {
-  userName: string;
-  email: string;
-  password: string;
-  repeatPassword: string;
-  agreement: boolean;
-}
+import { SignUpFormData } from "../../../types";
+import useSingUp from "../../../hooks/useSignUp";
+import FieldComponent from "../../common/fieldComponent/FieldComponent";
+import ModalComponent from "../../common/modalComponent/modalComponent";
+import SubmitInput from "../../common/submitInput/submitInput";
 
 const SignUpPage = () => {
   const {
@@ -25,116 +17,79 @@ const SignUpPage = () => {
     mode: "onChange",
   });
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const [registerUser, { isLoading, error }] = useRegisterUserMutation();
-
-  const onSubmit = async (data: SignUpFormData) => {
-    try {
-      const result = await registerUser({
-        username: data.userName,
-        email: data.email,
-        password: data.password,
-      }).unwrap();
-      console.log("Registration successful:", result);
-      dispatch(
-        setAuthData({
-          token: result.user.token,
-          username: result.user.username,
-          email: result.user.email,
-        })
-      );
-      reset();
-      navigate("/");
-    } catch (err) {
-      console.error("Registration failed:", err);
-    }
-  };
-
   const password = watch("password");
+
+  const { onSubmit, error } = useSingUp(reset);
 
   return (
     <div className="form-container">
       <h4>Create new account</h4>
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <label className="form__field">
-          <p className="form__field-name">Username</p>
-          <input
-            type="text"
-            {...register("userName", {
-              required: "Поле является обязательным",
-              minLength: {
-                value: 3,
-                message: "Минимум 3 символа",
-              },
-              maxLength: {
-                value: 20,
-                message: "Максимум 20 символов",
-              },
-            })}
-          />
-          {errors.userName && (
-            <p className="form__field-error" style={{ color: "red" }}>
-              {String(errors.userName.message)}
-            </p>
-          )}
-        </label>
-        <label className="form__field">
-          <p className="form__field-name">Email address</p>
-          <input
-            type="text"
-            {...register("email", {
-              required: "Поле является обязательным",
-              pattern: {
-                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i,
-                message: "Invalid email address",
-              },
-            })}
-          />
-          {errors.email && (
-            <p className="form__field-error" style={{ color: "red" }}>
-              {String(errors.email.message)}
-            </p>
-          )}
-        </label>
-        <label className="form__field">
-          <p className="form__field-name">Password</p>
-          <input
-            type="password"
-            {...register("password", {
-              required: "Поле является обязательным",
-              minLength: {
-                value: 6,
-                message: "Минимум 6 символов",
-              },
-              maxLength: {
-                value: 40,
-                message: "Максимум 40 символов",
-              },
-            })}
-          />
-          {errors.password && (
-            <p className="form__field-error" style={{ color: "red" }}>
-              {String(errors.password.message)}
-            </p>
-          )}
-        </label>
-        <label className="form__field">
-          <p className="form__field-name">Repeat Password</p>
-          <input
-            type="password"
-            {...register("repeatPassword", {
-              required: "Поле является обязательным",
-              validate: (value) => value === password || "Пароли не совпадают",
-            })}
-          />
-          {errors.repeatPassword && (
-            <p className="form__field-error" style={{ color: "red" }}>
-              {String(errors.repeatPassword.message)}
-            </p>
-          )}
-        </label>
+      <FieldComponent
+          title="Username"
+          type="text"
+          {...register("userName", {
+            required: "Поле является обязательным",
+            minLength: {
+              value: 3,
+              message: "Минимум 3 символа",
+            },
+            maxLength: {
+              value: 20,
+              message: "Максимум 20 символов",
+            },
+          })}
+          error={errors.userName}
+        />
+          <FieldComponent
+          title="Email address"
+          type="text"
+          {...register("email", {
+            required: "Поле является обязательным",
+            pattern: {
+              value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i,
+              message: "Invalid email address",
+            },
+          })}
+          error={errors.email}
+        />
+            <FieldComponent
+          title="Email address"
+          type="text"
+          {...register("email", {
+            required: "Поле является обязательным",
+            pattern: {
+              value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i,
+              message: "Invalid email address",
+            },
+          })}
+          error={errors.email}
+        />
+           <FieldComponent
+          title="Password"
+          type="text"
+          {...register("password", {
+            required: "Поле является обязательным",
+            minLength: {
+              value: 6,
+              message: "Минимум 6 символов",
+            },
+            maxLength: {
+              value: 40,
+              message: "Максимум 40 символов",
+            },
+          })}
+          error={errors.password}
+        />
+         <FieldComponent
+          title="Repeat Password"
+          type="password"
+          {...register("repeatPassword", {
+            required: "Поле является обязательным",
+            validate: (value) => value === password || "Пароли не совпадают",
+          })}
+          error={errors.repeatPassword}
+        />
         <label className="form__checkbox">
           <input
             type="checkbox"
