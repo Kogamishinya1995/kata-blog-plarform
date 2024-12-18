@@ -1,16 +1,18 @@
 import React, { forwardRef } from "react";
 import { FieldError } from "react-hook-form";
 
-interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface MyTextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   title: string;
   error?: FieldError;
 }
 
-const FieldComponent = forwardRef<HTMLInputElement, MyInputProps>(
+const FieldTextAreaComponent = forwardRef<HTMLTextAreaElement, MyTextAreaProps>(
   ({ title, error, ...props }, ref) => (
     <label className="form__field">
       <p className="form__field-name">{title}</p>
-      <input ref={ref} {...props} />
+      <textarea
+      rows={5}
+      ref={ref} {...props} />
       {error && (
         <p className="form__field-error" style={{ color: "red" }}>
           {String(error.message)}
@@ -20,6 +22,6 @@ const FieldComponent = forwardRef<HTMLInputElement, MyInputProps>(
   )
 );
 
-FieldComponent.displayName = "FieldComponent";
+FieldTextAreaComponent.displayName = "FieldTextAreaComponent";
 
-export default FieldComponent;
+export default FieldTextAreaComponent;

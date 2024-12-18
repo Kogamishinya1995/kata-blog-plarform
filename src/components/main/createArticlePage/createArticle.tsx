@@ -4,6 +4,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import FieldComponent from "../../common/fieldComponent/FieldComponent";
 import useCreateArticle from "./useCreateArticle";
 import { CreateArticleFormData } from "../../../types";
+import FieldTextAreaComponent from "../../common/fieldTextArea/fieldTextArea";
 
 const CreateArticlePage = () => {
   const {
@@ -52,20 +53,13 @@ const CreateArticlePage = () => {
           })}
           error={errors.shortDescription}
         />
-        <label className="form__field">
-          <p className="form__field-name">Text</p>
-          <textarea
-            rows={5}
-            {...register("text", {
-              required: "Поле является обязательным",
-            })}
-          />
-          {errors.text && (
-            <p className="form__field-error" style={{ color: "red" }}>
-              {String(errors.text.message)}
-            </p>
-          )}
-        </label>
+        <FieldTextAreaComponent
+          title="Text"
+          {...register("text", {
+            required: "Поле является обязательным",
+          })}
+          error={errors.text}
+        />
         <label className="form-tags-container">
           <ul>
             {fields.map((item, index) => (
