@@ -5,6 +5,7 @@ import FieldComponent from "../../common/fieldComponent/FieldComponent";
 import useCreateArticle from "./useCreateArticle";
 import { CreateArticleFormData } from "../../../types";
 import FieldTextAreaComponent from "../../common/fieldTextArea/fieldTextArea";
+import SubmitInput from "../../common/submitInput/submitInput";
 
 const CreateArticlePage = () => {
   const {
@@ -97,14 +98,9 @@ const CreateArticlePage = () => {
             </p>
           )}
         </label>
-        <input
-          type="submit"
-          value="Send"
-          disabled={!isValid}
-          className={classNames("submit-button", {
-            "submit-button--disabled": !isValid,
-            "submit-button--enabled": isValid,
-          })}
+        <SubmitInput
+        value="send"
+        isValid={isValid}
         />
       </form>
     </div>
