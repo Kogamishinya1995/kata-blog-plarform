@@ -20,7 +20,6 @@ const useCreateArticle = (reset: () => void, filtredtags: string[]) => {
         },
         token,
       }).unwrap();
-
       reset();
       navigate(`/articles/${result.article.slug}`);
     } catch (err) {

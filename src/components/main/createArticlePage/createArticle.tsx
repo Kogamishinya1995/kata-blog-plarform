@@ -1,13 +1,13 @@
-import classNames from "classnames";
 import Button from "react-bootstrap/Button";
 import { useForm, useFieldArray } from "react-hook-form";
-import FieldComponent from "../../common/fieldComponent/FieldComponent";
 import useCreateArticle from "./useCreateArticle";
 import { CreateArticleFormData } from "../../../types";
+import FieldComponent from "../../common/fieldComponent/FieldComponent";
 import FieldTextAreaComponent from "../../common/fieldTextArea/fieldTextArea";
 import SubmitInput from "../../common/submitInput/submitInput";
 
 const CreateArticlePage = () => {
+  
   const {
     register,
     formState: { errors, isValid },
@@ -98,10 +98,7 @@ const CreateArticlePage = () => {
             </p>
           )}
         </label>
-        <SubmitInput
-        value="send"
-        isValid={isValid}
-        />
+        <SubmitInput value="send" isValid={isValid} />
       </form>
     </div>
   );
