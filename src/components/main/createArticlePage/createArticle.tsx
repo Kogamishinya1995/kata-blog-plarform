@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import { useForm, useFieldArray } from "react-hook-form";
-import useCreateArticle from "./useCreateArticle";
+import useCreateArticle from "../../../hooks/useCreateArticle";
 import { CreateArticleFormData } from "../../../types";
 import FieldComponent from "../../common/fieldComponent/FieldComponent";
 import FieldTextAreaComponent from "../../common/fieldTextArea/fieldTextArea";
@@ -28,7 +28,7 @@ const CreateArticlePage = () => {
     .filter((item) => item !== "" && item !== undefined)
     .flat();
 
-  const onSubmit = useCreateArticle(reset, filtredtags);
+    const { onSubmit, error } = useCreateArticle(reset, filtredtags);
 
   return (
     <div className="form-container">
@@ -100,6 +100,7 @@ const CreateArticlePage = () => {
         </label>
         <SubmitInput value="send" isValid={isValid} />
       </form>
+      {error && <p className="error" style={{ color: 'red' }}>{error}</p>} 
     </div>
   );
 };

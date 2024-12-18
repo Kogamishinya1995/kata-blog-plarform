@@ -1,12 +1,9 @@
 import classNames from "classnames";
 import { useForm, useFieldArray } from "react-hook-form";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useUpdateArticleMutation } from "../../../slices/articlesApi";
 import { useLocation } from 'react-router-dom';
 import Button from "react-bootstrap/Button";
-import { RootState } from "../../../slices";
 import { CreateArticleFormData } from "../../../types";
+import useUpdateArticle from "../../../hooks/useUpdateArticle";
 
 
 const EditArticlePage = () => {
@@ -31,10 +28,7 @@ const EditArticlePage = () => {
         test: tags,
       },
   });
-  const navigate = useNavigate();
-  const token = useSelector((state: RootState) => state.auth.token);
-
-  const [updateArticle, { isLoading, error }] = useUpdateArticleMutation();
+  
   const { fields, append, remove } = useFieldArray({
     control,
     name: "test",
@@ -45,27 +39,7 @@ const EditArticlePage = () => {
     .filter((item) => item !== "" && item !== undefined)
     .flat();
 
-
-  const onSubmit = async (data: CreateArticleFormData) => {
-    try {
-      const result = await updateArticle({
-        article: {
-          title: data.title,
-          description: data.shortDescription,
-          body: data.text,
-          tagList: filtredtags,
-        },
-        token,
-        slug,
-      }).unwrap();
-      console.log("Update successful:", result);
-      reset();
-      navigate(`/articles/${result.article.slug}`);
-    } catch (err) {
-      console.error("Update failed:", err);
-    }
-  };
-
+    const onSubmit = useUpdateArticle(reset, filtredtags, slug);
 
   return (
     <div className="form-container">

@@ -1,17 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useCreateArticleMutation } from '../../../slices/articlesApi';
-import { RootState } from '../../../slices';
-import { CreateArticleFormData } from '../../../types';
+import { useUpdateArticleMutation } from '../slices/articlesApi';
+import { RootState } from '../slices';
+import { CreateArticleFormData } from '../types';
 
-const useCreateArticle = (reset: () => void, filtredtags: string[]) => {
+const useUpdateArticle = (reset: () => void, filtredtags: string[], slug: string) => {
   const navigate = useNavigate();
   const token = useSelector((state: RootState) => state.auth.token);
-  const [createArticle] = useCreateArticleMutation();
+  const [updateArticle, { error }] = useUpdateArticleMutation();
 
   const onSubmit = async (data: CreateArticleFormData) => {
     try {
-      const result = await createArticle({
+      const result = await updateArticle({
         article: {
           title: data.title,
           description: data.shortDescription,
@@ -19,15 +19,16 @@ const useCreateArticle = (reset: () => void, filtredtags: string[]) => {
           tagList: filtredtags,
         },
         token,
+        slug,
       }).unwrap();
       reset();
       navigate(`/articles/${result.article.slug}`);
     } catch (err) {
-      console.error("Article creation failed:", err);
+      console.error("Update failed:", err);
     }
   };
 
-  return onSubmit;
+  return { onSubmit, error };
 };
 
-export default useCreateArticle;
+export default useUpdateArticle;
