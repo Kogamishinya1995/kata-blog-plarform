@@ -1,2 +1,1 @@
-Kata Project Avaisales
-
+Kata Project Blog Platform
