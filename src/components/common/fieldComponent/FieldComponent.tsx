@@ -1,10 +1,5 @@
-import React, { forwardRef } from "react";
-import { FieldError } from "react-hook-form";
-
-interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  title: string;
-  error?: FieldError;
-}
+import { forwardRef } from "react";
+import { MyInputProps } from "../../../types";
 
 const FieldComponent = forwardRef<HTMLInputElement, MyInputProps>(
   ({ title, error, ...props }, ref) => (

@@ -3,23 +3,22 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../slices/articlesApi";
 import { setAuthData } from "../slices/authSlice";
+import { SignUpFormData } from "../types";
 import {
   isFetchBaseQueryError,
   isErrorWithMessage,
 } from "../utils/erorrorHelpers";
-import { SignUpFormData } from "../types";
-
 
 const useSingUp = (reset: () => void) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const [registerUser] = useRegisterUserMutation();
   const [error, setError] = useState<string | null>(null);
 
   const onSubmit = async (data: SignUpFormData) => {
     try {
-      setError(null); 
+      setError(null);
       const result = await registerUser({
         username: data.userName,
         email: data.email,
@@ -41,7 +40,9 @@ const useSingUp = (reset: () => void) => {
       } else if (isErrorWithMessage(err)) {
         errMsg = err.message;
       }
-      setError(`Извините, возникла ошибка при попытке зарегестрироваться:  ${errMsg}`);
+      setError(
+        `Извините, возникла ошибка при попытке зарегестрироваться:  ${errMsg}`
+      );
     }
   };
 

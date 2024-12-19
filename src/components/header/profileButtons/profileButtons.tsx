@@ -1,9 +1,9 @@
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { clearAuthData } from "../../../slices/authSlice";
 import { RootState } from "../../../slices";
 import { articlesApi } from "../../../slices/articlesApi";
+import { clearAuthData } from "../../../slices/authSlice";
 
 const ProfileButtons = () => {
   const dispatch = useDispatch();
@@ -28,8 +28,8 @@ const ProfileButtons = () => {
           variant="outline-info"
           onClick={() => {
             dispatch(clearAuthData());
-            dispatch(articlesApi.util.invalidateTags(['Articles']));
-        }}
+            dispatch(articlesApi.util.invalidateTags(["Articles"]));
+          }}
         >
           Log out
         </Button>

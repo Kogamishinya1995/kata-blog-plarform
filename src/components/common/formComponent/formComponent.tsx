@@ -8,17 +8,7 @@ import FieldComponent from "../../common/fieldComponent/FieldComponent";
 import FieldTextAreaComponent from "../../common/fieldTextArea/fieldTextArea";
 import SubmitInput from "../../common/submitInput/submitInput";
 import ModalComponent from "../../common/modalComponent/modalComponent";
-
-interface ArticleFormProps {
-  isEditMode: boolean;
-  articleData?: {
-    title: string;
-    description: string;
-    text: string;
-    tags: string[];
-    slug?: string;
-  };
-}
+import { ArticleFormProps } from "../../../types";
 
 const ArticleForm: React.FC<ArticleFormProps> = ({ isEditMode, articleData }) => {
   const {

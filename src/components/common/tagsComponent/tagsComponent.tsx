@@ -1,16 +1,25 @@
 import { uniqueId } from "lodash";
+import Badge from "react-bootstrap/Badge";
 import { Article } from "../../../types";
-import Badge from 'react-bootstrap/Badge';
 
-
-const TagsComponent = ({ article }: { article: Article }) => {
-  return <div className="tags">
+const TagsComponent = ({ article }: { article: Article }) => (
+  <div className="tags">
     {article.tagList?.length ? (
-      article.tagList.map((item) => <Badge bg="secondary" className="badge badge-pill badge-light" key={uniqueId("tag_")}>{item}</Badge>)
+      article.tagList.map((item) => (
+        <Badge
+          bg="secondary"
+          className="badge badge-pill badge-light"
+          key={uniqueId("tag_")}
+        >
+          {item}
+        </Badge>
+      ))
     ) : (
-      <Badge bg="secondary" className="badge badge-pill badge-light">#безтегов</Badge>
+      <Badge bg="secondary" className="badge badge-pill badge-light">
+        #безтегов
+      </Badge>
     )}
-  </div>;
-};
+  </div>
+);
 
 export default TagsComponent;

@@ -1,11 +1,8 @@
-import { FC } from 'react';
+import { FC } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, Navigate } from "react-router-dom";
 import { RootState } from "../../slices";
-
-interface Props {
-    children: React.ReactNode;
-  }
+import { Props } from "../../types";
 
 const RequireAuth: FC<Props> = ({ children }) => {
   const location = useLocation();

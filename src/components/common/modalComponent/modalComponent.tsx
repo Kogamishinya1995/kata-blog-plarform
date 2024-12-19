@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-modal";
-
-interface ModalComponentProps {
-  error?: string | null;
-}
+import { ModalComponentProps } from "../../../types";
 
 const ModalComponent: React.FC<ModalComponentProps> = ({ error }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);

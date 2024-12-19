@@ -14,7 +14,6 @@ const initialState: AuthState = {
   image: null,
 };
 
-
 interface AuthData {
   token?: string;
   username?: string;
@@ -22,13 +21,19 @@ interface AuthData {
   image?: string;
 }
 
-
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setAuthData(state, action: PayloadAction<{ token: string; username: string; email: string, image?: string | null | undefined }>) {
-      console.log("Setting auth data:", action.payload);
+    setAuthData(
+      state,
+      action: PayloadAction<{
+        token: string;
+        username: string;
+        email: string;
+        image?: string | null | undefined;
+      }>
+    ) {
       state.token = action.payload.token;
       state.username = action.payload.username;
       state.email = action.payload.email;
@@ -42,25 +47,24 @@ const authSlice = createSlice({
       state.email = null;
       state.image = null;
     },
-    updateAuthData(state, action: PayloadAction<AuthData>) { 
-      console.log("Setting auth data:", action.payload);
-    
+    updateAuthData(state, action: PayloadAction<AuthData>) {
+
       if (action.payload.token !== undefined) {
         state.token = action.payload.token;
       }
-      
+
       if (action.payload.username !== undefined) {
         state.username = action.payload.username;
       }
-      
+
       if (action.payload.email !== undefined) {
         state.email = action.payload.email;
       }
-      
+
       if (action.payload.image !== undefined) {
         state.image = action.payload.image;
       }
-    }    
+    },
   },
 });
 

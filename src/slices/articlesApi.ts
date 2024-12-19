@@ -1,12 +1,14 @@
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  GetArticlesQueryArgs,
+  Article,
+  ArticleResponse,
+  RegisterResponse,
+  LoginResponse,
+  UpdateUserResponse,
+} from "../types";
 
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from '.';
-import { GetArticlesQueryArgs } from '../types';
-import { Article } from '../types';
-import { ArticleResponse } from '../types';
-import { RegisterResponse } from '../types';
-import { LoginResponse } from '../types';
-import { UpdateUserResponse } from '../types';
+import { RootState } from ".";
 
 export const articlesApi = createApi({
   reducerPath: "articles",
@@ -17,54 +19,97 @@ export const articlesApi = createApi({
       const token = state.auth.token;
 
       if (token) {
-        headers.set('Authorization', `Token ${token}`);
+        headers.set("Authorization", `Token ${token}`);
       }
 
       return headers;
-    }
+    },
   }),
-  tagTypes: ['Article', 'Articles'],
+  tagTypes: ["Article", "Articles"],
   endpoints: (builder) => ({
-    getArticles: builder.query<{ articles: Article[]; articlesCount: number }, GetArticlesQueryArgs>({
+    getArticles: builder.query<
+      { articles: Article[]; articlesCount: number },
+      GetArticlesQueryArgs
+    >({
       query: ({ offset = 0 }) => `/articles/?offset=${offset}`,
-      providesTags: ['Articles'],
+      providesTags: ["Articles"],
     }),
     getAnArticle: builder.query<ArticleResponse, string>({
       query: (slug) => `/articles/${slug}`,
-      providesTags: (_, __, slug) => [{ type: 'Article', id: slug }],
+      providesTags: (_, __, slug) => [{ type: "Article", id: slug }],
       keepUnusedDataFor: 0,
     }),
-    registerUser: builder.mutation<RegisterResponse, { username: string; email: string; password: string }>({
+    registerUser: builder.mutation<
+      RegisterResponse,
+      { username: string; email: string; password: string }
+    >({
       query: (newUser) => ({
         url: "/users",
         method: "POST",
         body: { user: newUser },
       }),
     }),
-    logInUser: builder.mutation<LoginResponse, { email: string; password: string }>({
+    logInUser: builder.mutation<
+      LoginResponse,
+      { email: string; password: string }
+    >({
       query: (userData) => ({
         url: "/users/login",
         method: "POST",
         body: { user: userData },
-        invalidatesTags: ['Articles'],
+        invalidatesTags: ["Articles"],
       }),
     }),
-    updateUser: builder.mutation<UpdateUserResponse, { user: { email: string; password: string; username: string; image: string }; token: string | null }>({
+    updateUser: builder.mutation<
+      UpdateUserResponse,
+      {
+        user: {
+          email: string;
+          password: string;
+          username: string;
+          image: string;
+        };
+        token: string | null;
+      }
+    >({
       query: ({ user }) => ({
         url: "/user",
         method: "PUT",
         body: { user },
       }),
     }),
-    createArticle: builder.mutation<ArticleResponse, { article: { title: string; description: string; body: string; tagList: string[] }; token: string | null }>({
+    createArticle: builder.mutation<
+      ArticleResponse,
+      {
+        article: {
+          title: string;
+          description: string;
+          body: string;
+          tagList: string[];
+        };
+        token: string | null;
+      }
+    >({
       query: ({ article }) => ({
         url: "/articles",
         method: "POST",
         body: { article: article },
-        invalidatesTags: ['Articles'],
+        invalidatesTags: ["Articles"],
       }),
     }),
-    updateArticle: builder.mutation<ArticleResponse, { article: { title: string; description: string; body: string; tagList: string[] }; token: string | null, slug: string }>({
+    updateArticle: builder.mutation<
+      ArticleResponse,
+      {
+        article: {
+          title: string;
+          description: string;
+          body: string;
+          tagList: string[];
+        };
+        token: string | null;
+        slug: string;
+      }
+    >({
       query: ({ article, slug }) => ({
         url: `/articles/${slug}`,
         method: "PUT",
@@ -102,5 +147,5 @@ export const {
   useUpdateArticleMutation,
   useDeleteArticleMutation,
   useFavoriteArticleMutation,
-  useUnfavoriteArticleMutation
+  useUnfavoriteArticleMutation,
 } = articlesApi;

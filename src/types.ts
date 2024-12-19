@@ -1,3 +1,5 @@
+import { FieldError } from "react-hook-form";
+
 export interface Author {
   bio: string;
   image: string;
@@ -86,4 +88,40 @@ export interface LoginResponse {
 
 export interface UpdateUserResponse {
   user: User;
+}
+
+export interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  title: string;
+  error?: FieldError;
+}
+
+export interface MyTextAreaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  title: string;
+  error?: FieldError;
+}
+
+export interface ArticleFormProps {
+  isEditMode: boolean;
+  articleData?: {
+    title: string;
+    description: string;
+    text: string;
+    tags: string[];
+    slug?: string;
+  };
+}
+
+export interface ModalComponentProps {
+  error?: string | null;
+}
+
+export interface MySubmitInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  value: string;
+  isValid: boolean;
+}
+
+export interface Props {
+  children: React.ReactNode;
 }

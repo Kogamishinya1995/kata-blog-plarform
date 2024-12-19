@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import Modal from "react-modal";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { RootState } from "../../../slices";
 import {
   articlesApi,
   useGetAnArticleQuery,
@@ -12,7 +13,6 @@ import {
 import AuthorComponent from "../../common/authorComponent/authorComponent";
 import FavoritedComponent from "../../common/favoritedComponent/favoritedComponent";
 import TagsComponent from "../../common/tagsComponent/tagsComponent";
-import { RootState } from "../../../slices";
 import NotFoundPage from "../notFoundPage/notFoundPage";
 
 const SingleArticle = () => {
@@ -138,9 +138,7 @@ const SingleArticle = () => {
           </button>
         </div>
       ) : (
-        !isLoading && (
-          <NotFoundPage />
-        )
+        !isLoading && <NotFoundPage />
       )}
     </div>
   );

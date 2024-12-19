@@ -2,13 +2,12 @@ import { Routes, Route } from "react-router-dom";
 import ArticleList from "./articlesLIst/articlesLIst";
 import CreateArticlePage from "./createArticlePage/createArticle";
 import EditArticlePage from "./editArticlePage/editArticle";
-import EditProfilePage from "./updateProfilePage/updateProfile";
+import NotFoundPage from "./notFoundPage/notFoundPage";
 import SignInPage from "./signInPage/signInPage";
 import SignUpPage from "./signUpPage/signUpPage";
 import SingleArticle from "./singleArticle/singleArticle";
+import EditProfilePage from "./updateProfilePage/updateProfile";
 import RequireAuth from "../hoc/RequireAuth";
-import NotFoundPage from "./notFoundPage/notFoundPage";
-
 
 const MainComponent = () => (
   <main className="main">

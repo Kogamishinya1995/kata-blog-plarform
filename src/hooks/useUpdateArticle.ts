@@ -1,21 +1,27 @@
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useUpdateArticleMutation } from '../slices/articlesApi';
-import { RootState } from '../slices';
-import { CreateArticleFormData } from '../types';
-import { isFetchBaseQueryError, isErrorWithMessage } from '../utils/erorrorHelpers';
-import { useState } from 'react';
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { RootState } from "../slices";
+import { useUpdateArticleMutation } from "../slices/articlesApi";
+import { CreateArticleFormData } from "../types";
+import {
+  isFetchBaseQueryError,
+  isErrorWithMessage,
+} from "../utils/erorrorHelpers";
 
-const useUpdateArticle = (reset: () => void, filtredtags: string[], slug: string) => {
+const useUpdateArticle = (
+  reset: () => void,
+  filtredtags: string[],
+  slug: string
+) => {
   const navigate = useNavigate();
   const token = useSelector((state: RootState) => state.auth.token);
   const [updateArticle] = useUpdateArticleMutation();
-  const [error, setError] = useState<string | null>(null); 
-  
+  const [error, setError] = useState<string | null>(null);
 
   const onSubmit = async (data: CreateArticleFormData) => {
     try {
-      setError(null); 
+      setError(null);
       const result = await updateArticle({
         article: {
           title: data.title,
@@ -29,12 +35,12 @@ const useUpdateArticle = (reset: () => void, filtredtags: string[], slug: string
       reset();
       navigate(`/articles/${result.article.slug}`);
     } catch (err) {
-      let errMsg = 'Произошла ошибка.';
-      if (isFetchBaseQueryError(err)) { 
-        errMsg = 'error' in err ? err.error : JSON.stringify(err.data); 
-      } else if (isErrorWithMessage(err)) { 
-        errMsg = err.message; 
-      } 
+      let errMsg = "Произошла ошибка.";
+      if (isFetchBaseQueryError(err)) {
+        errMsg = "error" in err ? err.error : JSON.stringify(err.data);
+      } else if (isErrorWithMessage(err)) {
+        errMsg = err.message;
+      }
       setError(`Извините, возникла ошибка при обновлении статьи:  ${errMsg}`);
     }
   };
