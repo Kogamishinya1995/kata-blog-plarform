@@ -89,9 +89,9 @@ const SingleArticle = () => {
             </div>
             <div className="single-article__author-container">
               <AuthorComponent article={data.article} />
-              <div className="single-article-edit-button">
+              <div>
                 {user === data.article.author.username ? (
-                  <div>
+                  <div className="single-article-edit-button">
                     {" "}
                     <Button
                       variant="btn btn-outline-success"
