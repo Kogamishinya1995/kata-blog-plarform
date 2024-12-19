@@ -42,6 +42,7 @@ export const articlesApi = createApi({
         url: "/users/login",
         method: "POST",
         body: { user: userData },
+        invalidatesTags: ['Articles'],
       }),
     }),
     updateUser: builder.mutation<any, { user: { email: string; password: string; username: string; image: string }; token: string | null }>({

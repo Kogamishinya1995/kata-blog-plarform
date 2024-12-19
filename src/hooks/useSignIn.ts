@@ -8,6 +8,7 @@ import {
   isErrorWithMessage,
 } from "../utils/erorrorHelpers";
 import { SignInFormData } from "../types";
+import { articlesApi } from "../slices/articlesApi";
 
 
 const useSingIn = (reset: () => void) => {
@@ -35,6 +36,7 @@ const useSingIn = (reset: () => void) => {
             );
             reset();
             navigate("/");
+            dispatch(articlesApi.util.invalidateTags(["Articles"]));
     } catch (err) {
       let errMsg = "Произошла ошибка.";
       if (isFetchBaseQueryError(err)) {

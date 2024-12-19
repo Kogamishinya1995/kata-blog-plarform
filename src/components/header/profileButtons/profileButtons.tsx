@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { clearAuthData } from "../../../slices/authSlice";
 import { RootState } from "../../../slices";
+import { articlesApi } from "../../../slices/articlesApi";
 
 const ProfileButtons = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,10 @@ const ProfileButtons = () => {
       <Link to="/">
         <Button
           variant="outline-info"
-          onClick={() => dispatch(clearAuthData())}
+          onClick={() => {
+            dispatch(clearAuthData());
+            dispatch(articlesApi.util.invalidateTags(['Articles']));
+        }}
         >
           Log out
         </Button>

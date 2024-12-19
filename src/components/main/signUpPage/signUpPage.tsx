@@ -1,10 +1,10 @@
-import classNames from "classnames";
 import { useForm } from "react-hook-form";
 import { SignUpFormData } from "../../../types";
 import useSingUp from "../../../hooks/useSignUp";
 import FieldComponent from "../../common/fieldComponent/FieldComponent";
 import ModalComponent from "../../common/modalComponent/modalComponent";
 import SubmitInput from "../../common/submitInput/submitInput";
+import { Link } from "react-router-dom";
 
 const SignUpPage = () => {
   const {
@@ -42,18 +42,6 @@ const SignUpPage = () => {
           error={errors.userName}
         />
           <FieldComponent
-          title="Email address"
-          type="text"
-          {...register("email", {
-            required: "Поле является обязательным",
-            pattern: {
-              value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i,
-              message: "Invalid email address",
-            },
-          })}
-          error={errors.email}
-        />
-            <FieldComponent
           title="Email address"
           type="text"
           {...register("email", {
@@ -107,8 +95,9 @@ const SignUpPage = () => {
         <SubmitInput value="Create Account" isValid={isValid} />
       </form>
       <p className="form_have-Account-Message">
-        Already have an account? Sign In.
+        Already have an account?  <Link to="/sign-in">Sign In.</Link>
       </p>
+      <ModalComponent error={error} />
     </div>
   );
 };
