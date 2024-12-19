@@ -2,6 +2,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from '.';
 import { GetArticlesQueryArgs } from '../types';
+import { Article } from '../types';
+import { ArticleResponse } from '../types';
+import { RegisterResponse } from '../types';
+import { LoginResponse } from '../types';
+import { UpdateUserResponse } from '../types';
 
 export const articlesApi = createApi({
   reducerPath: "articles",
@@ -20,23 +25,23 @@ export const articlesApi = createApi({
   }),
   tagTypes: ['Article', 'Articles'],
   endpoints: (builder) => ({
-    getArticles: builder.query<{ articles: any[]; articlesCount: number }, GetArticlesQueryArgs>({
+    getArticles: builder.query<{ articles: Article[]; articlesCount: number }, GetArticlesQueryArgs>({
       query: ({ offset = 0 }) => `/articles/?offset=${offset}`,
       providesTags: ['Articles'],
     }),
-    getAnArticle: builder.query<any, string>({
+    getAnArticle: builder.query<ArticleResponse, string>({
       query: (slug) => `/articles/${slug}`,
       providesTags: (_, __, slug) => [{ type: 'Article', id: slug }],
       keepUnusedDataFor: 0,
     }),
-    registerUser: builder.mutation<any, { username: string; email: string; password: string }>({
+    registerUser: builder.mutation<RegisterResponse, { username: string; email: string; password: string }>({
       query: (newUser) => ({
         url: "/users",
         method: "POST",
         body: { user: newUser },
       }),
     }),
-    logInUser: builder.mutation<any, { email: string; password: string }>({
+    logInUser: builder.mutation<LoginResponse, { email: string; password: string }>({
       query: (userData) => ({
         url: "/users/login",
         method: "POST",
@@ -44,14 +49,14 @@ export const articlesApi = createApi({
         invalidatesTags: ['Articles'],
       }),
     }),
-    updateUser: builder.mutation<any, { user: { email: string; password: string; username: string; image: string }; token: string | null }>({
+    updateUser: builder.mutation<UpdateUserResponse, { user: { email: string; password: string; username: string; image: string }; token: string | null }>({
       query: ({ user }) => ({
         url: "/user",
         method: "PUT",
         body: { user },
       }),
     }),
-    createArticle: builder.mutation<any, { article: { title: string; description: string; body: string; tagList: string[] }; token: string | null }>({
+    createArticle: builder.mutation<ArticleResponse, { article: { title: string; description: string; body: string; tagList: string[] }; token: string | null }>({
       query: ({ article }) => ({
         url: "/articles",
         method: "POST",
@@ -59,7 +64,7 @@ export const articlesApi = createApi({
         invalidatesTags: ['Articles'],
       }),
     }),
-    updateArticle: builder.mutation<any, { article: { title: string; description: string; body: string; tagList: string[] }; token: string | null, slug: string }>({
+    updateArticle: builder.mutation<ArticleResponse, { article: { title: string; description: string; body: string; tagList: string[] }; token: string | null, slug: string }>({
       query: ({ article, slug }) => ({
         url: `/articles/${slug}`,
         method: "PUT",

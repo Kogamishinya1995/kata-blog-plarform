@@ -50,3 +50,40 @@ export interface SignUpFormData {
 export type GetArticlesQueryArgs = {
   offset?: number;
 };
+
+export interface ArticleResponse {
+  article: Article;
+}
+export interface UserResponse {
+  user: Author;
+}
+
+export interface User {
+  token: string;
+  username: string;
+  email: string;
+  image?: string;
+}
+
+export interface RegisterUser {
+  username: string;
+  email: string;
+  password: string;
+}
+
+export interface LoginUser {
+  email: string;
+  password: string;
+}
+
+export interface RegisterResponse {
+  user: User;
+}
+
+export interface LoginResponse {
+  user: User;
+}
+
+export interface UpdateUserResponse {
+  user: User;
+}

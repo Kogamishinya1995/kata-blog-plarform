@@ -13,6 +13,7 @@ import AuthorComponent from "../../common/authorComponent/authorComponent";
 import FavoritedComponent from "../../common/favoritedComponent/favoritedComponent";
 import TagsComponent from "../../common/tagsComponent/tagsComponent";
 import { RootState } from "../../../slices";
+import NotFoundPage from "../notFoundPage/notFoundPage";
 
 const SingleArticle = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -59,6 +60,7 @@ const SingleArticle = () => {
   return (
     <div className="single-article-container">
       {isLoading && <p>загрузка статьи...</p>}
+      {error && <p>Ошибка при загрузке статьи</p>}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -137,9 +139,7 @@ const SingleArticle = () => {
         </div>
       ) : (
         !isLoading && (
-          <p>
-            Ошибка при загрузке статьи: статья с указанным адресом не найдена
-          </p>
+          <NotFoundPage />
         )
       )}
     </div>
