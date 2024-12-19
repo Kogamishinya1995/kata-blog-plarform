@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import ArticleList from "./articlesList/articlesList";
+import ArticleList from "./articlesLIst/articlesList";
 import CreateArticlePage from "./createArticlePage/createArticle";
 import EditArticlePage from "./editArticlePage/editArticle";
 import NotFoundPage from "./notFoundPage/notFoundPage";
