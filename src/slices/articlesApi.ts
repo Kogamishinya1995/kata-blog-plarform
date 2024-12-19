@@ -1,16 +1,15 @@
 
-type GetArticlesQueryArgs = {
-  offset?: number;
-};
-
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { RootState } from '.';
+import { GetArticlesQueryArgs } from '../types';
 
 export const articlesApi = createApi({
   reducerPath: "articles",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://blog-platform.kata.academy/api",
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.token;
+      const state = getState() as RootState;
+      const token = state.auth.token;
 
       if (token) {
         headers.set('Authorization', `Token ${token}`);

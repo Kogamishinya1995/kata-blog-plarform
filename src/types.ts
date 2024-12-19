@@ -46,3 +46,7 @@ export interface SignUpFormData {
   repeatPassword: string;
   agreement: boolean;
 }
+
+export type GetArticlesQueryArgs = {
+  offset?: number;
+};

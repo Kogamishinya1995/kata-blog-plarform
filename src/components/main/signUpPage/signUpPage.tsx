@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
-import { SignUpFormData } from "../../../types";
+import { Link } from "react-router-dom";
 import useSingUp from "../../../hooks/useSignUp";
+import { SignUpFormData } from "../../../types";
 import FieldComponent from "../../common/fieldComponent/FieldComponent";
 import ModalComponent from "../../common/modalComponent/modalComponent";
 import SubmitInput from "../../common/submitInput/submitInput";
-import { Link } from "react-router-dom";
 
 const SignUpPage = () => {
   const {
@@ -25,7 +25,7 @@ const SignUpPage = () => {
     <div className="form-container">
       <h4>Create new account</h4>
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
-      <FieldComponent
+        <FieldComponent
           title="Username"
           type="text"
           {...register("userName", {
@@ -41,7 +41,7 @@ const SignUpPage = () => {
           })}
           error={errors.userName}
         />
-          <FieldComponent
+        <FieldComponent
           title="Email address"
           type="text"
           {...register("email", {
@@ -53,7 +53,7 @@ const SignUpPage = () => {
           })}
           error={errors.email}
         />
-           <FieldComponent
+        <FieldComponent
           title="Password"
           type="text"
           {...register("password", {
@@ -69,7 +69,7 @@ const SignUpPage = () => {
           })}
           error={errors.password}
         />
-         <FieldComponent
+        <FieldComponent
           title="Repeat Password"
           type="password"
           {...register("repeatPassword", {
@@ -95,7 +95,7 @@ const SignUpPage = () => {
         <SubmitInput value="Create Account" isValid={isValid} />
       </form>
       <p className="form_have-Account-Message">
-        Already have an account?  <Link to="/sign-in">Sign In.</Link>
+        Already have an account? <Link to="/sign-in">Sign In.</Link>
       </p>
       <ModalComponent error={error} />
     </div>

@@ -7,6 +7,8 @@ import SignInPage from "./signInPage/signInPage";
 import SignUpPage from "./signUpPage/signUpPage";
 import SingleArticle from "./singleArticle/singleArticle";
 import RequireAuth from "../hoc/RequireAuth";
+import NotFoundPage from "./notFoundPage/notFoundPage";
+
 
 const MainComponent = () => (
   <main className="main">
@@ -40,6 +42,7 @@ const MainComponent = () => (
           </RequireAuth>
         }
       />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   </main>
 );

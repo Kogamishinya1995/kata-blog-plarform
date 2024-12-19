@@ -4,6 +4,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useGetArticlesQuery } from "../../../slices/articlesApi";
 import { Article } from "../../../types";
 import ArticlePreview from "../articlesLIst/articlePreview/articlePreview";
+import NotFoundPage from "../notFoundPage/notFoundPage";
 
 const ArticleList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -40,10 +41,10 @@ const ArticleList = () => {
             </div>
           ))
         ) : (
-          <p>В настоящий момент нет опубликованных статей</p>
+          <NotFoundPage />
         )
       ) : (
-        !isLoading && <p>В настоящий момент нет опубликованных статей</p>
+        !isLoading &&  <NotFoundPage />
       )}
       <ResponsivePagination
         current={currentPage}

@@ -4,12 +4,13 @@
 @use './components/main/articlesList/articlePreview/articlePreview.scss';
 @use './components/main/singleArticle/singleArticle.scss';
 @use './components/main/articlesList/articlesList.scss';
-@use './components/main/signUpPage/signUpPage.scss';
 @use './components/header/profileButtons/profileButtons.scss';
 @use './components/common/favoritedComponent/favoritedComponent.scss';
 @use './components/common/authorComponent/authorComponent.scss';
 @use './components/common/tagsComponent/tagsComponent.scss';
 @use './components/main/createArticlePage/createArticlePage.scss';
+@use './components/common/formComponent/form.scss';
+@use './components/main/notFoundPage/notFoundPage.scss';
 
 
   body {
