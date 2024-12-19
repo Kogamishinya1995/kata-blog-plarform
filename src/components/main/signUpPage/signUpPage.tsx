@@ -104,15 +104,7 @@ const SignUpPage = () => {
             </p>
           )}
         </label>
-        <input
-          type="submit"
-          value="Create"
-          disabled={!isValid}
-          className={classNames("submit-button", {
-            "submit-button--disabled": !isValid,
-            "submit-button--enabled": isValid,
-          })}
-        />
+        <SubmitInput value="Create Account" isValid={isValid} />
       </form>
       <p className="form_have-Account-Message">
         Already have an account? Sign In.
