@@ -3,7 +3,7 @@ import ResponsivePagination from "react-responsive-pagination";
 import { Link, useSearchParams } from "react-router-dom";
 import { useGetArticlesQuery } from "../../../slices/articlesApi";
 import { Article } from "../../../types";
-import ArticlePreview from "../articlesLIst/articlePreview/articlePreview";
+import ArticlePreview from "./articlePreview/articlePreview";
 import NotFoundPage from "../notFoundPage/notFoundPage";
 
 const ArticleList = () => {
