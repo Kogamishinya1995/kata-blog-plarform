@@ -65,7 +65,7 @@ const FavoritedComponent = ({ article }: { article: Article }) => {
       {article.favorited ? (
         <FaHeart
           style={{ color: "red" }}
-          onClick={loading ? undefined : handleUnfavoriteClick}
+          onClick={loading ? undefined : handleUnfavoriteClick} 
         />
       ) : (
         <FaRegHeart
@@ -84,12 +84,12 @@ const FavoritedComponent = ({ article }: { article: Article }) => {
           Ставить лайки могут только авторизованные пользователи
           <div className="favourite-modal">
           <Link to="/sign-in">
-            <Button variant="btn btn-outline-success" disabled={loading}>Авторизоваться</Button>
+            <Button variant="btn btn-outline-success">Авторизоваться</Button>
           </Link>
           <Link to="/sign-up">
-            <Button variant="btn btn-outline-success" disabled={loading}>Зарегестрироваться</Button>
+            <Button variant="btn btn-outline-success">Зарегестрироваться</Button>
          </Link>
-          <Button variant="btn btn-outline-success" onClick={closeModal} disabled={loading}>Закрыть окно</Button>
+          <Button variant="btn btn-outline-success" onClick={closeModal}>Закрыть окно</Button>
           </div>
         </div>
       </Modal>
