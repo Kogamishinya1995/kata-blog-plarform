@@ -5,6 +5,7 @@ import { useGetArticlesQuery } from "../../../slices/articlesApi";
 import { Article } from "../../../types";
 import ArticlePreview from "./articlePreview/articlePreview";
 import NotFoundPage from "../notFoundPage/notFoundPage";
+import { Oval } from 'react-loader-spinner'; // Импортируем спиннер
 
 const ArticleList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,7 +27,17 @@ const ArticleList = () => {
 
   return (
     <div className="articles-list">
-      {isLoading && <p>Загрузка...</p>}
+      {isLoading && (
+        <div className="loading-container">
+          <Oval
+            height={80}
+            width={80}
+            color="#4fa94d"
+            ariaLabel='loading'
+          />
+          <p>Загрузка...</p>
+        </div>
+      )}
       {error && <p>Ошибка при загрузке статей</p>}
       {data ? (
         data.articles.length > 0 ? (
@@ -44,12 +55,13 @@ const ArticleList = () => {
           <NotFoundPage />
         )
       ) : (
-        !isLoading &&  <NotFoundPage />
+        !isLoading && <NotFoundPage />
       )}
       <ResponsivePagination
         current={currentPage}
         total={totalPages}
         onPageChange={setCurrentPage}
+        maxWidth={500}
       />
     </div>
   );
