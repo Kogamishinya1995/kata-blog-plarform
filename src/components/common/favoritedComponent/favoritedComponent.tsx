@@ -18,17 +18,23 @@ const FavoritedComponent = ({ article }: { article: Article }) => {
   const [unfavouriteArticle] = useUnfavoriteArticleMutation();
   const dispatch = useDispatch();
   const token = useSelector((state: RootState) => state.auth.token);
+  
+  const [loading, setLoading] = useState(false);
 
   const handleFavoriteClick = async (event: React.MouseEvent) => {
     event.preventDefault();
+    setLoading(true);
     await favouriteArticle({ slug: article.slug });
     dispatch(articlesApi.util.invalidateTags(["Articles", "Article"]));
+    setLoading(false);
   };
 
   const handleUnfavoriteClick = async (event: React.MouseEvent) => {
     event.preventDefault();
+    setLoading(true);
     await unfavouriteArticle({ slug: article.slug });
     dispatch(articlesApi.util.invalidateTags(["Articles", "Article"]));
+    setLoading(false);
   };
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -59,11 +65,11 @@ const FavoritedComponent = ({ article }: { article: Article }) => {
       {article.favorited ? (
         <FaHeart
           style={{ color: "red" }}
-          onClick={handleUnfavoriteClick}
+          onClick={loading ? undefined : handleUnfavoriteClick}
         />
       ) : (
         <FaRegHeart
-          onClick={token ? handleFavoriteClick : openModal}
+          onClick={loading ? undefined : (token ? handleFavoriteClick : openModal)}
         />
       )}{" "}
       {article.favoritesCount}
@@ -78,12 +84,12 @@ const FavoritedComponent = ({ article }: { article: Article }) => {
           Ставить лайки могут только авторизованные пользователи
           <div className="favourite-modal">
           <Link to="/sign-in">
-            <Button variant="btn btn-outline-success">Авторизоваться</Button>
+            <Button variant="btn btn-outline-success" disabled={loading}>Авторизоваться</Button>
           </Link>
           <Link to="/sign-up">
-            <Button variant="btn btn-outline-success">Зарегестрироваться</Button>
+            <Button variant="btn btn-outline-success" disabled={loading}>Зарегестрироваться</Button>
          </Link>
-          <Button variant="btn btn-outline-success" onClick={closeModal}>Закрыть окно</Button>
+          <Button variant="btn btn-outline-success" onClick={closeModal} disabled={loading}>Закрыть окно</Button>
           </div>
         </div>
       </Modal>
