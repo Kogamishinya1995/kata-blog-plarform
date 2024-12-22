@@ -1,10 +1,10 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import useSignUp from "../../../hooks/useSignUp";
 import { SignUpFormData } from "../../../types";
 import FieldComponent from "../../common/fieldComponent/FieldComponent";
 import SubmitInput from "../../common/submitInput/submitInput";
-import { useEffect, useState } from "react";
 
 const SignUpPage = () => {
   const {
@@ -19,15 +19,18 @@ const SignUpPage = () => {
 
   const password = watch("password");
   const { onSubmit, error, isLoading } = useSignUp(reset);
-  const [serverErrors, setServerErrors] = useState<{ errors?: { username?: string; email?: string } }>({});
+  const [serverErrors, setServerErrors] = useState<{
+    errors?: { username?: string; email?: string };
+  }>({});
 
   useEffect(() => {
     if (error) {
       try {
-        const parsedError = typeof error === 'string' ? JSON.parse(error) : error;
+        const parsedError =
+          typeof error === "string" ? JSON.parse(error) : error;
         setServerErrors(parsedError);
       } catch (err) {
-        console.error('Ошибка при разборе серверной ошибки:', err);
+        console.error("Ошибка при разборе серверной ошибки:", err);
       }
     }
   }, [error]);
@@ -50,14 +53,14 @@ const SignUpPage = () => {
               message: "Максимум 20 символов",
             },
             onChange: () => {
-              setServerErrors(prev => ({
+              setServerErrors((prev) => ({
                 ...prev,
                 errors: {
                   ...prev.errors,
                   username: undefined,
-                }
+                },
               }));
-            }
+            },
           })}
           error={errors.userName}
           serverError={serverErrors.errors?.username}
@@ -72,14 +75,14 @@ const SignUpPage = () => {
               message: "Неверный адрес электронной почты",
             },
             onChange: () => {
-              setServerErrors(prev => ({
+              setServerErrors((prev) => ({
                 ...prev,
                 errors: {
                   ...prev.errors,
                   email: undefined,
-                }
+                },
               }));
-            }
+            },
           })}
           error={errors.email}
           serverError={serverErrors.errors?.email}
@@ -100,7 +103,7 @@ const SignUpPage = () => {
           })}
           error={errors.password}
         />
-        
+
         <FieldComponent
           title="Повторите пароль"
           type="password"
@@ -110,7 +113,7 @@ const SignUpPage = () => {
           })}
           error={errors.repeatPassword}
         />
-        
+
         <label className="form__checkbox">
           <input
             type="checkbox"
@@ -125,8 +128,12 @@ const SignUpPage = () => {
             </p>
           )}
         </label>
-        
-        <SubmitInput value="Создать учетную запись" isValid={isValid} disabled={isLoading} />
+
+        <SubmitInput
+          value="Создать учетную запись"
+          isValid={isValid}
+          disabled={isLoading}
+        />
       </form>
       <p className="form_have-Account-Message">
         У вас уже есть аккаунт? <Link to="/sign-in">Войти.</Link>

@@ -1,20 +1,22 @@
 import { forwardRef } from "react";
-import { MyTextAreaProps } from "../../../types";
+import TextField from '@mui/material/TextField'; 
+import { MyInputProps } from "../../../types";
 
-const FieldTextAreaComponent = forwardRef<HTMLTextAreaElement, MyTextAreaProps>(
-  ({ title, error, ...props }, ref) => (
+
+const FieldTextArea = forwardRef<HTMLInputElement, MyInputProps>(
+  ({ title, error, serverError, color, ...props }, ref) => (
     <label className="form__field">
       <p className="form__field-name">{title}</p>
-      <textarea rows={5} ref={ref} {...props} />
-      {error && (
+      <TextField ref={ref} size={"small"} color={color} {...props}  multiline  rows={5}  />
+      {(error || serverError) && (
         <p className="form__field-error" style={{ color: "red" }}>
-          {String(error.message)}
+          {String(error?.message || serverError)}
         </p>
       )}
     </label>
   )
 );
 
-FieldTextAreaComponent.displayName = "FieldTextAreaComponent";
+FieldTextArea.displayName = "FieldComponent";
 
-export default FieldTextAreaComponent;
+export default FieldTextArea;

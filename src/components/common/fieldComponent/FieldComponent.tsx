@@ -4,10 +4,10 @@ import { MyInputProps } from "../../../types";
 
 
 const FieldComponent = forwardRef<HTMLInputElement, MyInputProps>(
-  ({ title, error, serverError, size, color, ...props }, ref) => (
+  ({ title, error, serverError, color, ...props }, ref) => (
     <label className="form__field">
       <p className="form__field-name">{title}</p>
-      <TextField ref={ref} size={size} color={color} {...props} />
+      <TextField ref={ref} size={"small"} color={color} {...props} />
       {(error || serverError) && (
         <p className="form__field-error" style={{ color: "red" }}>
           {String(error?.message || serverError)}

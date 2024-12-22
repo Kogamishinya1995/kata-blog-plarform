@@ -1,16 +1,19 @@
+import TextField from "@mui/material/TextField";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { useForm, useFieldArray } from "react-hook-form";
 import useCreateArticle from "../../../hooks/useCreateArticle";
 import useUpdateArticle from "../../../hooks/useUpdateArticle";
-import { CreateArticleFormData } from "../../../types";
+import { CreateArticleFormData, ArticleFormProps } from "../../../types";
 import FieldComponent from "../../common/fieldComponent/FieldComponent";
 import FieldTextAreaComponent from "../../common/fieldTextArea/fieldTextArea";
-import SubmitInput from "../../common/submitInput/submitInput";
 import ModalComponent from "../../common/modalComponent/modalComponent";
-import { ArticleFormProps } from "../../../types";
+import SubmitInput from "../../common/submitInput/submitInput";
 
-const ArticleForm: React.FC<ArticleFormProps> = ({ isEditMode, articleData }) => {
+const ArticleForm: React.FC<ArticleFormProps> = ({
+  isEditMode,
+  articleData,
+}) => {
   const {
     register,
     formState: { errors, isValid },
@@ -39,8 +42,16 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ isEditMode, articleData }) =>
     .filter((item) => item !== "" && item !== undefined)
     .flat();
 
-  const { onSubmit: createArticle, error: createError, isLoading: isCreating } = useCreateArticle(reset, filtredtags);
-  const { onSubmit: updateArticle, error: updateError, isLoading: isUpdating } = useUpdateArticle(reset, filtredtags, articleData?.slug || "");
+  const {
+    onSubmit: createArticle,
+    error: createError,
+    isLoading: isCreating,
+  } = useCreateArticle(reset, filtredtags);
+  const {
+    onSubmit: updateArticle,
+    error: updateError,
+    isLoading: isUpdating,
+  } = useUpdateArticle(reset, filtredtags, articleData?.slug || "");
 
   const onSubmit = async (data: CreateArticleFormData) => {
     try {
@@ -89,15 +100,18 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ isEditMode, articleData }) =>
           <ul>
             {fields.map((item, index) => (
               <li className="form-tags" key={item.id}>
-                <input
+                <TextField
                   {...register(`test.${index}.tags` as const)}
                   className="form-tags__input"
+                  size="small"
                 />
                 <Button
                   variant="btn btn-outline-danger"
                   className="form-tags__delete-button"
                   type="button"
-                  onClick={() => remove(index)}
+                  onClick={() => {
+                    remove(index);
+                  }}
                 >
                   Delete
                 </Button>
@@ -108,14 +122,22 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ isEditMode, articleData }) =>
             className="form-tags__append-button"
             variant="btn btn-outline-primary"
             type="button"
-            onClick={() => append({ tags: "" })}
+            onClick={() => {
+              append({ tags: "" });
+            }}
           >
             Append
           </Button>
         </label>
-        <SubmitInput value={isEditMode ? "Edit" : "Send"} isValid={isValid} disabled={ isEditMode? isUpdating : isCreating } />
+        <SubmitInput
+          value={isEditMode ? "Edit" : "Send"}
+          isValid={isValid}
+          disabled={isEditMode ? isUpdating : isCreating}
+        />
       </form>
-      {(createError || updateError) && <ModalComponent error={createError || updateError} />}
+      {(createError || updateError) && (
+        <ModalComponent error={createError || updateError} />
+      )}
     </div>
   );
 };

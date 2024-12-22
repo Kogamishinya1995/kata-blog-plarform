@@ -128,3 +128,7 @@ export interface MyInputProps extends Omit<React.InputHTMLAttributes<HTMLInputEl
   size?: 'small' | 'medium';
   color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
 }
+
+export interface ErrorWithMessage {
+  message: string;
+}

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
+import { Oval } from "react-loader-spinner"; // Импортируем спиннер
 import ResponsivePagination from "react-responsive-pagination";
 import { Link, useSearchParams } from "react-router-dom";
+import ArticlePreview from "./articlePreview/articlePreview";
 import { useGetArticlesQuery } from "../../../slices/articlesApi";
 import { Article } from "../../../types";
-import ArticlePreview from "./articlePreview/articlePreview";
 import NotFoundPage from "../notFoundPage/notFoundPage";
-import { Oval } from 'react-loader-spinner'; // Импортируем спиннер
 
 const ArticleList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,12 +29,7 @@ const ArticleList = () => {
     <div className="articles-list">
       {isLoading && (
         <div className="loading-container">
-          <Oval
-            height={80}
-            width={80}
-            color="#4fa94d"
-            ariaLabel='loading'
-          />
+          <Oval height={80} width={80} color="#4fa94d" ariaLabel="loading" />
           <p>Загрузка...</p>
         </div>
       )}
