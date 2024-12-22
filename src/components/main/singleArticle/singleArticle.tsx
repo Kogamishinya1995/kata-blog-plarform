@@ -28,7 +28,7 @@ const SingleArticle = () => {
 
   const user = useSelector((state: RootState) => state.auth.username);
   const token = useSelector((state: RootState) => state.auth.token);
-  const [deleteArticle] = useDeleteArticleMutation();
+  const [deleteArticle, { isLoading: isDelete }] = useDeleteArticleMutation();
 
   const handleDelete = () => {
     deleteArticle({ token, slug });
@@ -69,7 +69,7 @@ const SingleArticle = () => {
       >
         <div className="single-article-modal">
           Вы действительно хотите удалить статью?
-          <Button variant="btn btn-outline-danger" onClick={handleDelete}>
+          <Button variant="btn btn-outline-danger" onClick={handleDelete} disabled={isDelete}>
             Удалить статью
           </Button>
         </div>

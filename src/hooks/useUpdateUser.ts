@@ -13,7 +13,7 @@ import {
 const useUpdateUser = (reset: () => void) => {
   const navigate = useNavigate();
   const token = useSelector((state: RootState) => state.auth.token);
-  const [updateUser] = useUpdateUserMutation();
+  const [updateUser, { isLoading }] = useUpdateUserMutation();
   const [error, setError] = useState<string | null>(null);
   const dispatch = useDispatch();
 
@@ -52,7 +52,7 @@ const useUpdateUser = (reset: () => void) => {
     }
   };
 
-  return { onSubmit, error };
+  return { onSubmit, error, isLoading };
 };
 
 export default useUpdateUser;

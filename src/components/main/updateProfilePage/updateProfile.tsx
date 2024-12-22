@@ -15,7 +15,7 @@ const EditProfilePage = () => {
     mode: "onChange",
   });
 
-  const { onSubmit, error } = useUpdateUser(reset);
+  const { onSubmit, error, isLoading } = useUpdateUser(reset);
 
   return (
     <div className="form-container">
@@ -70,7 +70,7 @@ const EditProfilePage = () => {
           })}
           error={errors.avatar}
         />
-        <SubmitInput value="Update" isValid={isValid} />
+        <SubmitInput value="Update" isValid={isValid} disabled={isLoading} />
         {error && <ModalComponent error={error} />}
       </form>
     </div>

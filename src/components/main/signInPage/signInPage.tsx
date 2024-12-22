@@ -15,7 +15,7 @@ const SignUpPage = () => {
     mode: "onChange",
   });
 
-  const { onSubmit, error } = useSingIn(reset);
+  const { onSubmit, error, isLoading } = useSingIn(reset);
 
   return (
     <div className="form-container">
@@ -41,7 +41,7 @@ const SignUpPage = () => {
           })}
           error={errors.password}
         />
-        <SubmitInput value="Login" isValid={isValid} />
+        <SubmitInput value="Login" isValid={isValid} disabled={isLoading} />
       </form>
       <ModalComponent error={error} />
     </div>

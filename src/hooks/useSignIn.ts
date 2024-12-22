@@ -13,7 +13,7 @@ const useSingIn = (reset: () => void) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [logInUser] = useLogInUserMutation();
+  const [logInUser, {isLoading}] = useLogInUserMutation();
   const [error, setError] = useState<string | null>(null);
 
   const onSubmit = async (data: SignInFormData) => {
@@ -47,7 +47,7 @@ const useSingIn = (reset: () => void) => {
     }
   };
 
-  return { onSubmit, error };
+  return { onSubmit, error, isLoading };
 };
 
 export default useSingIn;
