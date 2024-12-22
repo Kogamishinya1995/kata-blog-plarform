@@ -41,7 +41,7 @@ const useSingUp = (reset: () => void) => {
         errMsg = err.message;
       }
       setError(
-        `Извините, возникла ошибка при попытке зарегестрироваться:  ${errMsg}`
+        errMsg
       );
     }
   };

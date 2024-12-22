@@ -92,7 +92,8 @@ export interface UpdateUserResponse {
 
 export interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   title: string;
-  error?: FieldError;
+  error?: FieldError | undefined;
+  serverError?: string | undefined;
 }
 
 export interface MyTextAreaProps

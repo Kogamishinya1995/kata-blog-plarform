@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import useSingUp from "../../../hooks/useSignUp";
+import useSignUp from "../../../hooks/useSignUp";
 import { SignUpFormData } from "../../../types";
 import FieldComponent from "../../common/fieldComponent/FieldComponent";
-import ModalComponent from "../../common/modalComponent/modalComponent";
 import SubmitInput from "../../common/submitInput/submitInput";
+import { useEffect, useState } from "react";
 
 const SignUpPage = () => {
   const {
@@ -18,15 +18,26 @@ const SignUpPage = () => {
   });
 
   const password = watch("password");
+  const { onSubmit, error, isLoading } = useSignUp(reset);
+  const [serverErrors, setServerErrors] = useState<{ errors?: { username?: string; email?: string } }>({});
 
-  const { onSubmit, error, isLoading } = useSingUp(reset);
+  useEffect(() => {
+    if (error) {
+      try {
+        const parsedError = typeof error === 'string' ? JSON.parse(error) : error;
+        setServerErrors(parsedError);
+      } catch (err) {
+        console.error('Ошибка при разборе серверной ошибки:', err);
+      }
+    }
+  }, [error]);
 
   return (
     <div className="form-container">
-      <h4>Create new account</h4>
+      <h4>Создать новую учетную запись</h4>
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <FieldComponent
-          title="Username"
+          title="Имя пользователя"
           type="text"
           {...register("userName", {
             required: "Поле является обязательным",
@@ -40,22 +51,24 @@ const SignUpPage = () => {
             },
           })}
           error={errors.userName}
+          serverError={serverErrors.errors?.username}
         />
         <FieldComponent
-          title="Email address"
+          title="Email"
           type="text"
           {...register("email", {
             required: "Поле является обязательным",
             pattern: {
               value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i,
-              message: "Invalid email address",
+              message: "Неверный адрес электронной почты",
             },
           })}
           error={errors.email}
+          serverError={serverErrors.errors?.email}
         />
         <FieldComponent
-          title="Password"
-          type="text"
+          title="Пароль"
+          type="password"
           {...register("password", {
             required: "Поле является обязательным",
             minLength: {
@@ -69,8 +82,9 @@ const SignUpPage = () => {
           })}
           error={errors.password}
         />
+        
         <FieldComponent
-          title="Repeat Password"
+          title="Повторите пароль"
           type="password"
           {...register("repeatPassword", {
             required: "Поле является обязательным",
@@ -78,6 +92,7 @@ const SignUpPage = () => {
           })}
           error={errors.repeatPassword}
         />
+        
         <label className="form__checkbox">
           <input
             type="checkbox"
@@ -85,19 +100,19 @@ const SignUpPage = () => {
               required: "Вы должны согласиться с условиями",
             })}
           />
-          I agree to the processing of personal data
+          Я согласен на обработку персональных данных
           {errors.agreement && (
             <p className="form__checkbox-error" style={{ color: "red" }}>
               {String(errors.agreement.message)}
             </p>
           )}
         </label>
-        <SubmitInput value="Create Account" isValid={isValid} disabled={isLoading} />
+        
+        <SubmitInput value="Создать учетную запись" isValid={isValid} disabled={isLoading} />
       </form>
       <p className="form_have-Account-Message">
-        Already have an account? <Link to="/sign-in">Sign In.</Link>
+        У вас уже есть аккаунт? <Link to="/sign-in">Войти.</Link>
       </p>
-      <ModalComponent error={error} />
     </div>
   );
 };
