@@ -1,11 +1,13 @@
 import { forwardRef } from "react";
+import TextField from '@mui/material/TextField'; 
 import { MyInputProps } from "../../../types";
 
+
 const FieldComponent = forwardRef<HTMLInputElement, MyInputProps>(
-  ({ title, error, serverError, ...props }, ref) => (
+  ({ title, error, serverError, size, color, ...props }, ref) => (
     <label className="form__field">
       <p className="form__field-name">{title}</p>
-      <input ref={ref} {...props} />
+      <TextField ref={ref} size={size} color={color} {...props} />
       {(error || serverError) && (
         <p className="form__field-error" style={{ color: "red" }}>
           {String(error?.message || serverError)}

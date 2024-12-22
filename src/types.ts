@@ -90,12 +90,6 @@ export interface UpdateUserResponse {
   user: User;
 }
 
-export interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  title: string;
-  error?: FieldError | undefined;
-  serverError?: string | undefined;
-}
-
 export interface MyTextAreaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   title: string;
@@ -125,4 +119,12 @@ export interface MySubmitInputProps
 
 export interface Props {
   children: React.ReactNode;
+}
+
+export interface MyInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'color'> {
+  title: string;
+  error?: FieldError | undefined;
+  serverError?: string | undefined;
+  size?: 'small' | 'medium';
+  color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
 }

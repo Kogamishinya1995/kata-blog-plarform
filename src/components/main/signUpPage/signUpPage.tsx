@@ -49,6 +49,15 @@ const SignUpPage = () => {
               value: 20,
               message: "Максимум 20 символов",
             },
+            onChange: () => {
+              setServerErrors(prev => ({
+                ...prev,
+                errors: {
+                  ...prev.errors,
+                  username: undefined,
+                }
+              }));
+            }
           })}
           error={errors.userName}
           serverError={serverErrors.errors?.username}
@@ -62,6 +71,15 @@ const SignUpPage = () => {
               value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i,
               message: "Неверный адрес электронной почты",
             },
+            onChange: () => {
+              setServerErrors(prev => ({
+                ...prev,
+                errors: {
+                  ...prev.errors,
+                  email: undefined,
+                }
+              }));
+            }
           })}
           error={errors.email}
           serverError={serverErrors.errors?.email}
