@@ -19,7 +19,7 @@ const SignUpPage = () => {
 
   const password = watch("password");
 
-  const { onSubmit, error } = useSingUp(reset);
+  const { onSubmit, error, isLoading } = useSingUp(reset);
 
   return (
     <div className="form-container">
@@ -92,7 +92,7 @@ const SignUpPage = () => {
             </p>
           )}
         </label>
-        <SubmitInput value="Create Account" isValid={isValid} />
+        <SubmitInput value="Create Account" isValid={isValid} disabled={isLoading} />
       </form>
       <p className="form_have-Account-Message">
         Already have an account? <Link to="/sign-in">Sign In.</Link>

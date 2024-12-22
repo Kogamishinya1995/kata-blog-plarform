@@ -13,7 +13,7 @@ const useSingUp = (reset: () => void) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [registerUser] = useRegisterUserMutation();
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
   const [error, setError] = useState<string | null>(null);
 
   const onSubmit = async (data: SignUpFormData) => {
@@ -46,7 +46,7 @@ const useSingUp = (reset: () => void) => {
     }
   };
 
-  return { onSubmit, error };
+  return { onSubmit, error, isLoading };
 };
 
 export default useSingUp;
