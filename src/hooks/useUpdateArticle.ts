@@ -16,7 +16,7 @@ const useUpdateArticle = (
 ) => {
   const navigate = useNavigate();
   const token = useSelector((state: RootState) => state.auth.token);
-  const [updateArticle] = useUpdateArticleMutation();
+  const [updateArticle, { isLoading }] = useUpdateArticleMutation();
   const [error, setError] = useState<string | null>(null);
 
   const onSubmit = async (data: CreateArticleFormData) => {
@@ -45,7 +45,7 @@ const useUpdateArticle = (
     }
   };
 
-  return { onSubmit, error };
+  return { onSubmit, error, isLoading };
 };
 
 export default useUpdateArticle;

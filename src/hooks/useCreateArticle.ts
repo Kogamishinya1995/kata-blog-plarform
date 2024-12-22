@@ -12,7 +12,7 @@ import {
 const useCreateArticle = (reset: () => void, filtredtags: string[]) => {
   const navigate = useNavigate();
   const token = useSelector((state: RootState) => state.auth.token);
-  const [createArticle] = useCreateArticleMutation();
+  const [createArticle, { isLoading }] = useCreateArticleMutation();
   const [error, setError] = useState<string | null>(null);
 
   const onSubmit = async (data: CreateArticleFormData) => {
@@ -40,7 +40,7 @@ const useCreateArticle = (reset: () => void, filtredtags: string[]) => {
     }
   };
 
-  return { onSubmit, error };
+  return { onSubmit, error, isLoading };
 };
 
 export default useCreateArticle;

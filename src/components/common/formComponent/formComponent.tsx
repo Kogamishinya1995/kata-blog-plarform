@@ -39,8 +39,8 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ isEditMode, articleData }) =>
     .filter((item) => item !== "" && item !== undefined)
     .flat();
 
-  const { onSubmit: createArticle, error: createError } = useCreateArticle(reset, filtredtags);
-  const { onSubmit: updateArticle, error: updateError } = useUpdateArticle(reset, filtredtags, articleData?.slug || "");
+  const { onSubmit: createArticle, error: createError, isLoading: isCreating } = useCreateArticle(reset, filtredtags);
+  const { onSubmit: updateArticle, error: updateError, isLoading: isUpdating } = useUpdateArticle(reset, filtredtags, articleData?.slug || "");
 
   const onSubmit = async (data: CreateArticleFormData) => {
     try {
@@ -113,7 +113,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ isEditMode, articleData }) =>
             Append
           </Button>
         </label>
-        <SubmitInput value={isEditMode ? "Edit" : "Send"} isValid={isValid} />
+        <SubmitInput value={isEditMode ? "Edit" : "Send"} isValid={isValid} disabled={ isEditMode? isUpdating : isCreating } />
       </form>
       {(createError || updateError) && <ModalComponent error={createError || updateError} />}
     </div>
