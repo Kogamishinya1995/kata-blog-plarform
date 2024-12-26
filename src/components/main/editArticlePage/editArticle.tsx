@@ -31,7 +31,6 @@ const EditArticlePage = () => {
     return (
       <div className="loading-container">
         <Oval height={80} width={80} color="#4fa94d" ariaLabel="loading" />
-        <p>Загрузка...</p>
       </div>
     );
   }
