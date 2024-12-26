@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import ProfileButtons from "./profileButtons/profileButtons";
 import SignButtons from "./signButtons/signButtons";
 import { RootState } from "../../slices";
@@ -9,7 +10,9 @@ const Header = () => {
   return (
     <div className="header-container">
       <div className="header">
-        <h1>RealWorld Blog</h1>
+        <Link className="title-link" to="/">
+          <h1>RealWorld Blog</h1>
+        </Link>
         {token ? <ProfileButtons /> : <SignButtons />}
       </div>
     </div>
