@@ -132,7 +132,7 @@ const SignUpPage = () => {
         <SubmitInput
           value="Создать учетную запись"
           isValid={isValid}
-          disabled={isLoading}
+          isLoading={isLoading}
         />
       </form>
       <p className="form_have-Account-Message">

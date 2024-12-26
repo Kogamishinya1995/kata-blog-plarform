@@ -41,7 +41,7 @@ const SignUpPage = () => {
           })}
           error={errors.password}
         />
-        <SubmitInput value="Login" isValid={isValid} disabled={isLoading} />
+        <SubmitInput value="Login" isValid={isValid} isLoading={isLoading} />
       </form>
       <ModalComponent error={error} />
     </div>

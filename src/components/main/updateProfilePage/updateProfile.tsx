@@ -70,7 +70,7 @@ const EditProfilePage = () => {
           })}
           error={errors.avatar}
         />
-        <SubmitInput value="Update" isValid={isValid} disabled={isLoading} />
+        <SubmitInput value="Update" isValid={isValid} disabled={isLoading} isLoading={isLoading} />
         {error && <ModalComponent error={error} />}
       </form>
     </div>

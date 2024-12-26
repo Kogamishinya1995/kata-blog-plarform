@@ -115,6 +115,7 @@ export interface MySubmitInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   value: string;
   isValid: boolean;
+  isLoading?: boolean;
 }
 
 export interface Props {

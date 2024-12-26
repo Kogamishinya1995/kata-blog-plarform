@@ -133,6 +133,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
           value={isEditMode ? "Edit" : "Send"}
           isValid={isValid}
           disabled={isEditMode ? isUpdating : isCreating}
+          isLoading={isEditMode? isUpdating : isCreating}
         />
       </form>
       {(createError || updateError) && (
