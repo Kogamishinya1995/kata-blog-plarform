@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Oval } from "react-loader-spinner"; // Импортируем спиннер
+import { Oval } from "react-loader-spinner";
 import ResponsivePagination from "react-responsive-pagination";
 import { Link, useSearchParams } from "react-router-dom";
 import ArticlePreview from "./articlePreview/articlePreview";

@@ -8,6 +8,8 @@ import {
   isFetchBaseQueryError,
   isErrorWithMessage,
 } from "../utils/erorrorHelpers";
+import { useDispatch } from "react-redux";
+import { articlesApi } from "../slices/articlesApi";
 
 const useUpdateArticle = (
   reset: () => void,
@@ -18,6 +20,7 @@ const useUpdateArticle = (
   const token = useSelector((state: RootState) => state.auth.token);
   const [updateArticle, { isLoading }] = useUpdateArticleMutation();
   const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch();
 
   const onSubmit = async (data: CreateArticleFormData) => {
     try {
@@ -34,6 +37,7 @@ const useUpdateArticle = (
       }).unwrap();
       reset();
       navigate(`/articles/${result.article.slug}`);
+      dispatch(articlesApi.util.invalidateTags(["Articles", "Article"]));
     } catch (err) {
       let errMsg = "Произошла ошибка.";
       if (isFetchBaseQueryError(err)) {
